@@ -1,0 +1,15 @@
+:root{
+    --cor1: #06151A;
+    --cor2: #212121;
+    --cor3: #33353F;
+    --corPrimaria: #17d99f;
+    --corTxt: #ffffff;
+    --gradiente: linear-gradient(#17D9B1,#17D9B1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box
+}  
+

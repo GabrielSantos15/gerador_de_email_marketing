@@ -1,0 +1,15 @@
+.input {
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid var(--cor3);
+    padding: 8px 16px;
+    border-radius: 5px;
+    color: var(--corTxt);
+    height: fit-content;
+    text-wrap: wrap;
+    outline: none;
+}
+
+.input:focus{
+    outline: 1px solid var(--corPrimaria);
+}
