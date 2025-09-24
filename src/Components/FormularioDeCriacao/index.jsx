@@ -8,7 +8,6 @@ export default function FormularioCriacao({
   setElementos,
   setHtml,
 }) {
-
   const [colorBg, setColorBg] = useState("#fff");
 
   useEffect(() => {
@@ -24,9 +23,12 @@ export default function FormularioCriacao({
       })
       .join("");
 
-    const htmlFinal = `<div style="background-color: ${colorBg}; padding: 20px;">${conteudoHtml}</div>`;
+    const htmlInicial = ``;
+    const htmlFinal =
+      htmlInicial +
+      `<div style="background-color: ${colorBg}; padding: 20px;">${conteudoHtml}</div>`;
     setHtml(htmlFinal);
-  }, [elementos, colorBg, setHtml]); 
+  }, [elementos, colorBg, setHtml]);
 
   const adicionarElemento = (elemento) => {
     const atualizados = elemento ? [...elementos, elemento] : elementos;
