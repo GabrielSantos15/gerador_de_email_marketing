@@ -7,27 +7,38 @@ export default function FormularioCriacao({
   elementos,
   setElementos,
   setHtml,
+  images,
+  SetImage,
 }) {
-  const [colorBg, setColorBg] = useState("#fff");
+  const [colorBg, setColorBg] = useState("#eee");
 
   useEffect(() => {
-    const conteudoHtml = elementos
+    let imgContador = 0;
+    let conteudoHtml = elementos
       .map((el) => {
-        if (el.tipo === "titulo")
-          return `<h1 style="color:${el.cor}; font-family: ${el.fonte}">${el.texto}</h1>`;
-        if (el.tipo === "paragrafo")
-          return `<p style="font-size:16px;color:#0f0;">Paragrafo</p>`;
-        if (el.tipo === "botao")
-          return `<a href="#" style="background:#007BFF; color:#fff; padding:10px 15px; text-decoration:none; border-radius:5px;">Botão</a>`;
+        if (el.tipo === "titulo") return `<h1>${el.texto}</h1>`;
+        if (el.tipo === "paragrafo") return `<p>${el.texto}</p>`;
+        if (el.tipo === "card")
+          return `<div style="background-color: ${el.corFundo};border-radius: 5px;padding: 10px;font-family: system-ui, Helvetica, sans-serif;box-shadow: 5px 5px 10px #0000003d"><h2>${el.titulo}</h2><p>${el.paragrafo}</p></div>`;
+        if (el.tipo === "imagem") {
+          imgContador++;
+          return `<img style="width:300px; max-width=100%" src="cid:imagem${imgContador}"/>`;
+        }
+        if (el.tipo === "banner") {
+          imgContador++;
+          return ` </div><img style="width:100%" src="cid:imagem${imgContador}"/><div style="background-color: ${colorBg}; padding: 20px;margin:0">`;
+        }
         return "";
       })
       .join("");
 
-    const htmlInicial = ``;
-    const htmlFinal =
-      htmlInicial +
-      `<div style="background-color: ${colorBg}; padding: 20px;">${conteudoHtml}</div>`;
-    setHtml(htmlFinal);
+    // Remove qualquer <div ...></div> vazia (com ou sem espaços dentro)
+    
+    let htmlFinal = `<div style="background-color: ${colorBg};"><div style="padding: 20px;">
+    ${conteudoHtml}
+    </div></body>`;
+
+    setHtml(htmlFinal.replace(/<div[^>]*>\s*<\/div>/g, ""));
   }, [elementos, colorBg, setHtml]);
 
   const adicionarElemento = (elemento) => {
@@ -40,6 +51,10 @@ export default function FormularioCriacao({
       i === index ? { ...el, ...novosCampos } : el
     );
     setElementos(atualizados);
+  };
+  const adicionarImagem = (imgBase64) => {
+    const newImages = images ? [...images, imgBase64] : images;
+    SetImage(newImages);
   };
 
   return (
@@ -55,6 +70,7 @@ export default function FormularioCriacao({
           index={i}
           elemento={el}
           atualizarElemento={atualizarElemento}
+          adicionarImagem={adicionarImagem}
         />
       ))}
 

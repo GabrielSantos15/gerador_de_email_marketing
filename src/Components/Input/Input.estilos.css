@@ -1,7 +1,7 @@
 .input {
     width: 100%;
     background-color: transparent;
-    border: 1px solid var(--cor3);
+    border: 1px solid var(--cor1);
     padding: 8px 16px;
     border-radius: 5px;
     color: var(--corTxt);

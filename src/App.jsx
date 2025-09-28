@@ -8,6 +8,7 @@ import FormularioCriacao from "./Components/FormularioDeCriacao";
 function App() {
   const [htmlElements, SetHtmlElements] = useState([]);
   const [html, SetHtml] = useState("teste");
+  const [images, SetImage] = useState([]);
 
   return (
     <>
@@ -20,9 +21,11 @@ function App() {
           elementos={htmlElements}
           setElementos={SetHtmlElements}
           setHtml={SetHtml}
+          images={images}
+          SetImage={SetImage}
         />
-        <HtmlPrevil conteudo={html}></HtmlPrevil>
-        <FormularioEnvio html={html}></FormularioEnvio>
+        <HtmlPrevil conteudo={html} images={images}></HtmlPrevil>
+        <FormularioEnvio html={html} images={images}></FormularioEnvio>
       </main>
     </>
   );

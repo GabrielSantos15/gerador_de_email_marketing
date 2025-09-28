@@ -1,0 +1,62 @@
+.menuEditor {
+    width: 100%;
+    background-color: var(--cor3);
+}
+
+.menuEditor button {
+    all: unset;
+    position: relative;
+    color: var(--cor1);
+    border-radius: 2px;
+}
+
+.menuEditor button:hover {
+    color: var(--corPrimaria);
+}
+
+.colorButton {
+    position: relative;
+}
+
+.colorButton:hover .colorSelect {
+    display: grid;
+}
+
+.colorSelect {
+    display: none;
+    grid-template-columns: repeat(5, 1fr);
+
+    position: absolute;
+    top: 100%;
+    background-color: var(--cor1);
+    z-index: 10;
+}
+
+span.colorSelectOption,
+.colorSelect input[type="color"] {
+    width: 20px;
+    height: 20px;
+    background-color: var(--color);
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+
+.ProseMirror {
+    border: 1px solid var(--cor1);
+    background-color: var(--cor2);
+}
+
+.ProseMirror p {
+    word-break: break-all;
+    
+}
+
+.ProseMirror:focus {
+    all: unset;
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+    text-wrap: wrap;
+}

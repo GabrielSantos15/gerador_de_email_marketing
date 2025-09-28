@@ -5,17 +5,18 @@ import Input from "../Input";
 import CampoForms from "../CampoForms";
 import Label from "../Label";
 
-export default function FormularioEnvio({ html }) {
+export default function FormularioEnvio({ html, images }) {
   const [to, setTo] = useState("comunicados.gs.dev@outlook.com");
   const [subject, setSubject] = useState("");
 
-  const enviarEmail = async () => {
+  const enviarEmail = async (e) => {
+    e.preventDefault();
     if (!confirm("ctz?")) return;
 
     await fetch("http://localhost:3000/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ to, subject, html }),
+      body: JSON.stringify({ to, subject, html, images }),
     });
     alert("E-mail enviado!");
   };

@@ -9,9 +9,7 @@ export default function ButtonAdd({ functionOnClick }) {
           onClick={() =>
             functionOnClick({
               tipo: "titulo",
-              texto: "Meu título",
-              cor: "#333",
-              fonte: "Arial",
+              texto: "",
             })
           }
         >
@@ -21,13 +19,43 @@ export default function ButtonAdd({ functionOnClick }) {
           onClick={() =>
             functionOnClick({
               tipo: "paragrafo",
-              texto: "Meu paragrafo",
-              cor: "#000000ff",
-              fonte: "Arial",
+              texto: "",
             })
           }
         >
           Paragrafo
+        </div>
+        <div
+          onClick={() =>
+            functionOnClick({
+              tipo: "card",
+              titulo: "",
+              paragrafo: "",
+              corFundo: "#fff"
+            })
+          }
+        >
+          Card
+        </div>
+        <div
+          onClick={() =>
+            functionOnClick({
+              tipo: "imagem",
+              foto: ""
+            })
+          }
+        >
+           imagem
+        </div>
+        <div
+          onClick={() =>
+            functionOnClick({
+              tipo: "banner",
+              foto: ""
+            })
+          }
+        >
+           Banner
         </div>
       </article>
     </div>

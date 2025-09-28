@@ -1,9 +1,9 @@
 :root{
-    --cor1: #06151A;
-    --cor2: #212121;
-    --cor3: #33353F;
-    --corPrimaria: #17d99f;
-    --corTxt: #ffffff;
+    --cor1: #b0b7b9;
+    --cor2: #DDE4E6;
+    --cor3: #ececec;
+    --corPrimaria: #ff4800;
+    --corTxt: #000000;
     --gradiente: linear-gradient(#17D9B1,#17D9B1);
 }
 
