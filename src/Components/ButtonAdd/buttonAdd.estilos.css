@@ -1,3 +1,8 @@
+.container-select-elemento{
+    width: 100%;
+    grid-column: 2;
+}
+
 .buttonAdd {
     all: unset;
     width: 50px;
@@ -6,7 +11,7 @@
 
     display: grid;
     place-items: center;
-
+    
     border-radius: 50%;
     background-color: var(--cor3);
     border: 1px solid #fff;
@@ -17,4 +22,38 @@
 
 .buttonAdd:hover {
     background-color: var(--corPrimaria);
+}
+
+.select-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    overflow: hidden;
+    
+    margin: 1em auto;
+    border-radius: 15px;
+    background-color: var(--cor1);
+    gap: 5px;
+    transition: .3s ease-in-out;
+    
+    height: 100%;
+    padding: 10px;
+
+    opacity: 0;
+}
+
+.buttonAdd:hover + .select-container , .select-container:hover {
+    opacity: 1;
+}
+
+.select-container div {
+    text-align: center;
+    padding: 8px 16px;
+    border: 1px solid var(--cor2);
+    background-color: var(--cor2);
+    cursor: pointer;
+}
+
+.select-container div:hover {
+    background-color: var(--cor3);
 }

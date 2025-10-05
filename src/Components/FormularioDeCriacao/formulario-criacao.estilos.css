@@ -1,41 +1,57 @@
-
-.container-select-elemento{
+.container-select-elemento {
     width: fit-content
 }
 
-.formulario-criacao{
+.formulario-criacao {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
     gap: 1em;
     padding: 1em;
+    height: calc(100dvh - 100px);
+    overflow-y: scroll;
+    box-shadow: 5px 5px 10px #00000018;
 }
 
-.select-container{
+.config-gerais{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px solid var(--cor1);
+}
+
+.select-container {
     margin: 1em auto;
     border-radius: 15px;
     display: none;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
     width: 100%;
     background-color: var(--cor1);
     padding: 10px;
     gap: 5px;
 }
 
-.container-select-elemento:hover{
+.elementos-lista {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
     width: 100%;
 }
-.container-select-elemento:hover .select-container {
-    display: grid;
+
+
+.formulario-criacao::-webkit-scrollbar {
+    height: 9px;
+    width: 9px;
 }
-.select-container div{
-    text-align: center;
-    padding: 8px 16px;
-    border: 1px solid var(--cor2);
-    background-color: var(--cor2);
-    cursor: pointer;
+
+.formulario-criacao::-webkit-scrollbar-track {
+    background-color: transparent;
 }
-.select-container div:hover{
-    background-color: var(--cor3);
+
+.formulario-criacao::-webkit-scrollbar-thumb {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--cor1);
 }

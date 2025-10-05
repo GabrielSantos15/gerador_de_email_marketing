@@ -10,6 +10,7 @@ export default function ButtonAdd({ functionOnClick }) {
             functionOnClick({
               tipo: "titulo",
               texto: "",
+              largura: "big",
             })
           }
         >
@@ -20,6 +21,7 @@ export default function ButtonAdd({ functionOnClick }) {
             functionOnClick({
               tipo: "paragrafo",
               texto: "",
+              largura: "big",
             })
           }
         >
@@ -31,7 +33,8 @@ export default function ButtonAdd({ functionOnClick }) {
               tipo: "card",
               titulo: "",
               paragrafo: "",
-              corFundo: "#fff"
+              corFundo: "#fff",
+              largura: "big",
             })
           }
         >
@@ -40,22 +43,35 @@ export default function ButtonAdd({ functionOnClick }) {
         <div
           onClick={() =>
             functionOnClick({
-              tipo: "imagem",
-              foto: ""
+              tipo: "botao",
+              texto: "",
+              largura: "big",
             })
           }
         >
-           imagem
+          Botão
+        </div>
+        <div
+          onClick={() =>
+            functionOnClick({
+              tipo: "imagem",
+              foto: "",
+              largura: "big",
+            })
+          }
+        >
+          imagem
         </div>
         <div
           onClick={() =>
             functionOnClick({
               tipo: "banner",
-              foto: ""
+              foto: "",
+              largura: "big",
             })
           }
         >
-           Banner
+          Banner
         </div>
       </article>
     </div>

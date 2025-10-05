@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./formulario-criacao.estilos.css";
 import ButtonAdd from "../ButtonAdd";
 import EditorElemento from "../EditorElemento";
+import Input from "../Input";
 
 export default function FormularioCriacao({
   elementos,
@@ -10,36 +11,96 @@ export default function FormularioCriacao({
   images,
   SetImage,
 }) {
-  const [colorBg, setColorBg] = useState("#eee");
+  const [colorBg, setColorBg] = useState("#eeeeee");
+  const [templateEmail, setTemplate] = useState("padrao");
 
   useEffect(() => {
     let imgContador = 0;
-    let conteudoHtml = elementos
-      .map((el) => {
-        if (el.tipo === "titulo") return `<h1>${el.texto}</h1>`;
-        if (el.tipo === "paragrafo") return `<p>${el.texto}</p>`;
-        if (el.tipo === "card")
-          return `<div style="background-color: ${el.corFundo};border-radius: 5px;padding: 10px;font-family: system-ui, Helvetica, sans-serif;box-shadow: 5px 5px 10px #0000003d"><h2>${el.titulo}</h2><p>${el.paragrafo}</p></div>`;
-        if (el.tipo === "imagem") {
-          imgContador++;
-          return `<img style="width:300px; max-width=100%" src="cid:imagem${imgContador}"/>`;
-        }
-        if (el.tipo === "banner") {
-          imgContador++;
-          return ` </div><img style="width:100%" src="cid:imagem${imgContador}"/><div style="background-color: ${colorBg}; padding: 20px;margin:0">`;
-        }
-        return "";
-      })
-      .join("");
+    let rows = [];
+    let tempRow = [];
 
-    // Remove qualquer <div ...></div> vazia (com ou sem espaços dentro)
-    
-    let htmlFinal = `<div style="background-color: ${colorBg};"><div style="padding: 20px;">
-    ${conteudoHtml}
-    </div></body>`;
+    elementos.forEach((el) => {
+      const width = el.largura === "small" ? "50%" : "100%";
+      let html = "";
 
-    setHtml(htmlFinal.replace(/<div[^>]*>\s*<\/div>/g, ""));
-  }, [elementos, colorBg, setHtml]);
+      if (el.tipo === "titulo") html = `<h1>${el.texto}</h1>`;
+      if (el.tipo === "paragrafo") html = `<p>${el.texto}</p>`;
+      if (el.tipo === "card")
+        html = `<div style="background-color: ${el.corFundo};border-radius: 5px;padding: 10px;box-shadow: 5px 5px 10px #0000003d;"><h2>${el.titulo}</h2><p>${el.paragrafo}</p></div>`;
+      if (el.tipo === "imagem") {
+        imgContador++;
+        html = `<img style="width:100%; max-width:100%;" src="cid:imagem${imgContador}"/>`;
+      }
+      if (el.tipo === "botao")
+        html = `<a href="${el.link}" target="_blank"><button>${el.texto}</button></a>`;
+      if (el.tipo === "banner") {
+        imgContador++;
+        html = `</td></tr></table><img style="width:100%" src="cid:imagem${imgContador}"/><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>`;
+      }
+
+      // Se largura 50%, adiciona à linha temporária
+      if (el.largura === "small") {
+        tempRow.push(
+          `<td width="50%" valign="center" style="padding: 10px">${html}</td>`
+        );
+        // Se já tem dois, fecha a linha
+        if (tempRow.length === 2) {
+          rows.push(`<tr style="padding:10px">${tempRow.join("")}</tr>`);
+          tempRow = [];
+        }
+      } else {
+        // Se houver célula pendente, fecha a linha antes
+        if (tempRow.length > 0) {
+          rows.push(`<tr>${tempRow.join("")}</tr>`);
+          tempRow = [];
+        }
+        // Elemento 100% ocupa linha inteira
+        rows.push(
+          `<tr style="padding:10px"><td width="100%;" valign="center" colspan="2" style="padding: 10px">${html}</td></tr>`
+        );
+      }
+    });
+
+    // Se sobrou célula 50% sozinha, completa a linha
+    if (tempRow.length === 1) {
+      tempRow.push('<td width="50%"></td>');
+      rows.push(`<tr>${tempRow.join("")}</tr>`);
+    }
+
+    // Monta a tabela
+    let conteudoHtml = `<table width="100%  cellpadding="0" cellspacing="0" border="0">${rows.join(
+      ""
+    )}</table>`;
+
+    conteudoHtml = conteudoHtml.replace(/<tr[^>]*>\s*<\/tr>/g, "");
+
+    // Remove <tr> que só tem <td> vazios
+    conteudoHtml = conteudoHtml.replace(
+      /<tr[^>]*>(\s*<td[^>]*>\s*<\/td>)+\s*<\/tr>/g,
+      ""
+    );
+
+    // Envolve com div de fundo
+    let htmlFinal = `
+  <style>
+    body, table, tr, td, h1, h2, h3, h4, h5, h6, p , img{
+      margin: 0 ;
+      padding: 0 ;
+      border: 0;
+      font-family: system-ui, Helvetica, sans-serif;
+    }
+  </style>
+  <div style="${tamplateGerador(
+    templateEmail
+  )}; max-width: 800px; margin: auto;">
+    <div style="background-color: ${colorBg}">
+      ${conteudoHtml}
+    </div>
+  <div>
+`;
+
+    setHtml(htmlFinal);
+  }, [elementos, colorBg, setHtml, templateEmail]);
 
   const adicionarElemento = (elemento) => {
     const atualizados = elemento ? [...elementos, elemento] : elementos;
@@ -52,29 +113,55 @@ export default function FormularioCriacao({
     );
     setElementos(atualizados);
   };
-  const adicionarImagem = (imgBase64) => {
-    const newImages = images ? [...images, imgBase64] : images;
-    SetImage(newImages);
-  };
 
   return (
     <section className="formulario-criacao">
-      <input
-        type="color"
-        value={colorBg}
-        onChange={(e) => setColorBg(e.target.value)}
-      />
-
-      {elementos.map((el, i) => (
-        <EditorElemento
-          index={i}
-          elemento={el}
-          atualizarElemento={atualizarElemento}
-          adicionarImagem={adicionarImagem}
-        />
-      ))}
+      <article className="config-gerais">
+        <span>
+          <label htmlFor="input-cor-fundo">Cor de Fundo</label>
+          <Input
+            id="input-cor-fundo"
+            type="color"
+            value={colorBg}
+            onChange={(e) => setColorBg(e.target.value)}
+          />
+        </span>
+        <span>
+          <label htmlFor="input-cor-fundo">Modelo</label>
+          <select onChange={(e) => setTemplate(e.target.value)}>
+            <option value="padrao">Padrão</option>
+            <option value="corporativo">Corporativo</option>
+            <option value="seguranca">Segurança</option>
+            <option value="festa">Festa</option>
+          </select>
+        </span>
+      </article>
+      <div className="elementos-lista">
+        {elementos.map((el, i) => (
+          <EditorElemento
+            index={i}
+            elemento={el}
+            atualizarElemento={atualizarElemento}
+          />
+        ))}
+      </div>
 
       <ButtonAdd functionOnClick={adicionarElemento} />
     </section>
   );
+
+  function tamplateGerador(template) {
+    switch (template) {
+      case "padrao":
+        return "padding: 20px; box-sizing: border-box;";
+      case "corporativo":
+        return `padding: 20px; box-sizing: border-box; margin: auto; font-family: Arial, sans-serif; background-color: #f9f9f9;`;
+      case "seguranca":
+        return `padding: 20px; box-sizing: border-box; margin: auto; font-family: 'Courier New', Courier, monospace; color: #000; background-color: #d80606ff; border: 5px solid #000; background-image: repeating-linear-gradient( 45deg, #ffffff33, #ffffff33 10px, #00000033 10px, #00000033 20px );`;
+      case "festa":
+        return `padding: 20px; box-sizing: border-box; margin: auto; font-family: 'Comic Sans MS', cursive, sans-serif; background-color: #ff69b4;background-image: url(https://www.shutterstock.com/image-vector/color-gradient-background-abstract-orange-600nw-2480677725.jpg);`;
+      default:
+        return "padding: 20px; box-sizing: border-box;";
+    }
+  }
 }

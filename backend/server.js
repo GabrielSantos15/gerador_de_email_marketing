@@ -11,7 +11,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 app.post("/send-email", async (req, res) => {
-  const { to, subject, html, images } = req.body;
+  const { to, subject, html, imagens } = req.body;
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -24,7 +24,7 @@ app.post("/send-email", async (req, res) => {
   });
 
   // Monta os attachments a partir do array de imagens
-  const attachments = images.map((img, index) => ({
+  const attachments = imagens.map((img, index) => ({
     filename: "imagem" + (index + 1) + ".jpg",
     content: img.base64,
     encoding: "base64",

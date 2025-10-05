@@ -5,7 +5,7 @@ import Input from "../Input";
 import CampoForms from "../CampoForms";
 import Label from "../Label";
 
-export default function FormularioEnvio({ html, images }) {
+export default function FormularioEnvio({ html, imagens }) {
   const [to, setTo] = useState("comunicados.gs.dev@outlook.com");
   const [subject, setSubject] = useState("");
 
@@ -16,13 +16,14 @@ export default function FormularioEnvio({ html, images }) {
     await fetch("http://localhost:3000/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ to, subject, html, images }),
+      body: JSON.stringify({ to, subject, html, imagens }),
     });
     alert("E-mail enviado!");
   };
 
   return (
     <form className="formulario-envio">
+      <input type="checkbox" name="" id="" />
       <h3>Enviar E-mail</h3>
       <CampoForms>
         <Label htmlFor="destinatárioInput">Destinatario:</Label>

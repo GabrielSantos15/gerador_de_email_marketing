@@ -9,23 +9,6 @@ main{
   grid-template-columns: 1.5fr 2fr 1fr;
 }
 
-header{
-  height:100px;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-  background-color: var(--cor3);
-  gap: 1em;
-  text-transform: capitalize;
-  box-shadow: 5px 0 10px #000;
-}
-
-header img{
-  max-width: 70px;
-}
-
 section{
   background-color: var(--cor2);
 }
@@ -35,6 +18,14 @@ form{
   flex-direction: column;
   gap: 8px;
   padding: 15px;
-  height: calc(100dvh - 100px);
+  height: calc(100dvh - 70px);
   background-color: var(--cor2);
+}
+
+select{
+  border-radius: 2px;
+  padding: 2px 4px;
+  background-color: var(--cor3);
+  outline: none;
+  border: 1px solid var(--cor1);
 }

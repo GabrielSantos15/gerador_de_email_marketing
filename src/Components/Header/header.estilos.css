@@ -1,0 +1,18 @@
+.header{
+  height:75px;
+  width: 100vw;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px;
+  background-color: var(--cor3);
+  gap: 1em;
+  text-transform: capitalize;
+  box-shadow: 5px 0 10px #000;
+}
+
+.header img{
+  max-width: 70px;
+}

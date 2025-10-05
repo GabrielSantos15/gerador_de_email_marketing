@@ -4,18 +4,20 @@ import "./App.css";
 import FormularioEnvio from "./Components/FormularioEnvio";
 import HtmlPrevil from "./Components/HtmlPrevil";
 import FormularioCriacao from "./Components/FormularioDeCriacao";
+import Header from "./Components/Header";
 
 function App() {
   const [htmlElements, SetHtmlElements] = useState([]);
   const [html, SetHtml] = useState("teste");
   const [images, SetImage] = useState([]);
 
+  const imagens = htmlElements
+    ? htmlElements.filter((el) => el.tipo === "imagem" || el.tipo === "banner")
+    : [];
+
   return (
     <>
-      <header>
-        <img src="/logo.png" alt="logo" />
-        <h1>Gerador de comunicado</h1>
-      </header>
+      <Header/>
       <main>
         <FormularioCriacao
           elementos={htmlElements}
@@ -24,8 +26,8 @@ function App() {
           images={images}
           SetImage={SetImage}
         />
-        <HtmlPrevil conteudo={html} images={images}></HtmlPrevil>
-        <FormularioEnvio html={html} images={images}></FormularioEnvio>
+        <HtmlPrevil conteudo={html} imagens={imagens}></HtmlPrevil>
+        <FormularioEnvio html={html} imagens={imagens}></FormularioEnvio>
       </main>
     </>
   );

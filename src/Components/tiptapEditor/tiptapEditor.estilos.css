@@ -14,6 +14,24 @@
     color: var(--corPrimaria);
 }
 
+
+.menuCheckboxInput{
+    display: none;
+}
+.menuCheckboxInput:checked ~ .menuCheckboxLabel {
+    color: var(--corPrimaria);
+}
+
+.menuBotoes {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 5px;
+    background-color: var(--cor2);
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
 .colorButton {
     position: relative;
 }
@@ -24,11 +42,16 @@
 
 .colorSelect {
     display: none;
-    grid-template-columns: repeat(5, 1fr);
-
     position: absolute;
     top: 100%;
-    background-color: var(--cor1);
+
+    grid-template-columns: repeat(5, 1fr);
+    padding: 5px;
+    gap: 2px;
+
+    background-color: var(--cor3);
+    box-shadow: 5px 5px 10px #0000003b, inset -5px -5px 10px #ffffffb7;
+    border-radius: 5px;
     z-index: 10;
 }
 
@@ -39,13 +62,46 @@ span.colorSelectOption,
     background-color: var(--color);
     display: inline-block;
     cursor: pointer;
-    border: 2px solid #fff;
-    border-radius: 50%;
+}
+
+.colorSelect input[type="color"]{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+    appearance: none;
+    
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color:transparent;
+}
+.colorSelect input[type="color"]::before{
+    content: '🎨';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.colorSelect input[type="color"]::-webkit-color-swatch {
+    display: none;
+    padding: 0;
+    outline: none;
+    outline: 1px solid var(--cor1);
+    height: 100%;
+    width: 100%;
 }
 
 .ProseMirror {
-    border: 1px solid var(--cor1);
+    all: unset;
+    appearance: none;
     background-color: var(--cor2);
+    height: 100%;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+    padding-left: 20px;
 }
 
 .ProseMirror p {
@@ -53,10 +109,7 @@ span.colorSelectOption,
     
 }
 
-.ProseMirror:focus {
-    all: unset;
-    width: 100%;
-    outline: none;
-    box-shadow: none;
-    text-wrap: wrap;
+.editorTipTap {
+    padding: 10px;
+    background-color: var(--cor2);
 }
