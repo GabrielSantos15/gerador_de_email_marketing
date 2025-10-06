@@ -3,7 +3,7 @@ import "./buttonAdd.estilos.css";
 export default function ButtonAdd({ functionOnClick }) {
   return (
     <div className="container-select-elemento">
-      <button className="buttonAdd">+</button>
+      <button className="buttonAdd"><i class="fa-solid fa-plus"></i></button>
       <article className="select-container">
         <div
           onClick={() =>
@@ -44,7 +44,10 @@ export default function ButtonAdd({ functionOnClick }) {
           onClick={() =>
             functionOnClick({
               tipo: "botao",
-              texto: "",
+              texto: "Acessar",
+              corFundo: "#e00043",
+              corTexto: "#ffffff",
+              arredondamento: 5,
               largura: "big",
             })
           }

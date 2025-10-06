@@ -3,7 +3,7 @@
     --cor1: #b0b7b9;
     --cor2: #ececec;
     --cor3: #f5f5f5;
-    --corPrimaria: #00a1e0;
+    --corPrimaria: #e00043;
     --corTxt: #000000;
     --gradiente: linear-gradient(#17D9B1,#17D9B1);
     --fontPadrao: '', sans-serif;
@@ -15,3 +15,7 @@
   box-sizing: border-box;
   font-family: var(--fontPadrao);
 }  
+
+.hidden{
+  display: none;
+}

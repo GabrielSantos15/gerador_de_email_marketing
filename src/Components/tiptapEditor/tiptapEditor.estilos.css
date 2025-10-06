@@ -15,6 +15,12 @@
 }
 
 
+.menuLabel {
+    display: flex;
+    justify-content: end;
+
+}
+
 .menuCheckboxInput{
     display: none;
 }
@@ -96,7 +102,6 @@ span.colorSelectOption,
     all: unset;
     appearance: none;
     background-color: var(--cor2);
-    height: 100%;
 }
 
 .ProseMirror ul,
@@ -110,6 +115,7 @@ span.colorSelectOption,
 }
 
 .editorTipTap {
+    height: max-content;
     padding: 10px;
     background-color: var(--cor2);
 }

@@ -70,7 +70,7 @@ export default function TipTapEditor(props) {
         types: ["heading", "paragraph"],
       }),
     ],
-    content: "<p></p>",
+    content: `<${props.tag || "p"}></${props.tag || "p"}>`,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       if (props.onChange) {
@@ -83,7 +83,7 @@ export default function TipTapEditor(props) {
 
   return (
     <div className="menuEditor">
-      <span>
+      <span className="menuLabel">
         <input
           className="menuCheckboxInput"
           type="checkbox"
@@ -120,12 +120,10 @@ export default function TipTapEditor(props) {
             />
           </div>
         </button>
-
         {/* NEGRITO */}
         <button onClick={() => editor.chain().focus().toggleBold().run()}>
           <i className="fa-solid fa-bold"></i>
         </button>
-
         {/* ITALICO */}
         <button onClick={() => editor.chain().focus().toggleItalic().run()}>
           <i class="fa-solid fa-italic"></i>
@@ -143,12 +141,16 @@ export default function TipTapEditor(props) {
             />
           </div>
         </button>
-
-        {/* LISTA */}
-        <button onClick={() => editor.chain().focus().toggleBulletList().run()}>
-          <i class="fa-solid fa-list"></i>
-        </button>
-
+        {/* LISTA (O elemento h1 não pode ser listado)*/}
+        {!(props.tag == "h1" || props.tag == "h2") ? (
+          <button
+            onClick={() => editor.chain().focus().toggleBulletList().run()}
+          >
+            <i class="fa-solid fa-list"></i>
+          </button>
+        ) : (
+          ""
+        )}
         {/* LINK */}
         <button
           onClick={() => {
@@ -167,7 +169,6 @@ export default function TipTapEditor(props) {
         >
           <i className="fa-solid fa-align-left"></i>
         </button>
-
         <button
           onClick={() => editor.chain().focus().setTextAlign("center").run()}
         >

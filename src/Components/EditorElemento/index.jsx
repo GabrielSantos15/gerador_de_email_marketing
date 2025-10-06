@@ -1,6 +1,7 @@
 import "./editor-elemento.estilos.css";
 import TipTapEditor from "../tiptapEditor";
 import Input from "../Input";
+import EditorImagem from "../EditorImagem";
 
 export default function EditorElemento({ index, elemento, atualizarElemento }) {
   switch (elemento.tipo) {
@@ -30,14 +31,11 @@ export default function EditorElemento({ index, elemento, atualizarElemento }) {
             </span>
           </div>
           <div>
-            <label htmlFor={"tituloInput" + index}>Texto</label>
-            <Input
+            <TipTapEditor
               id={"tituloInput" + index}
-              type="text"
-              value={elemento.texto || ""}
-              onChange={(e) =>
-                atualizarElemento(index, { texto: e.target.value })
-              }
+              tag="h1"
+              content={elemento.texto || ""}
+              onChange={(html) => atualizarElemento(index, { texto: html })}
             />
           </div>
         </div>
@@ -56,6 +54,7 @@ export default function EditorElemento({ index, elemento, atualizarElemento }) {
               <label htmlFor="sizeSelect">Tamanho</label>
               <select
                 id="sizeSelect"
+                tag="p"
                 name="size"
                 onChange={(e) =>
                   atualizarElemento(index, { largura: e.target.value })
@@ -69,7 +68,7 @@ export default function EditorElemento({ index, elemento, atualizarElemento }) {
             </span>
           </div>
           <TipTapEditor
-            index= {index}
+            index={index}
             content={elemento.texto || ""}
             onChange={(html) => atualizarElemento(index, { texto: html })}
           />
@@ -102,17 +101,47 @@ export default function EditorElemento({ index, elemento, atualizarElemento }) {
             </span>
           </div>
           <div>
-            <p>Texto</p>
-            <Input
-              type="text"
-              value={elemento.texto || ""}
-              onChange={(e) =>
-                atualizarElemento(index, { texto: e.target.value })
-              }
-            />
+            <span>
+              <p>Fundo</p>
+                <Input
+                type="color"
+                value={elemento.corFundo}
+                onChange={(e) =>
+                  atualizarElemento(index, { corFundo: e.target.value })
+                }
+              />
+            </span>
+            <span>
+              <p>Cor Texto</p>
+                <Input
+                type="color"
+                value={elemento.corTexto}
+                onChange={(e) =>
+                  atualizarElemento(index, { corTexto: e.target.value })
+                }
+              />
+            </span>
+            <span>
+              <p>Arredondar</p>
+                <Input
+                type="number"
+                value={elemento.arredondamento}
+                onChange={(e) =>
+                  atualizarElemento(index, { arredondamento: e.target.value })
+                }
+              />
+              <p>Texto</p>
+              <Input
+                type="text"
+                value={elemento.texto || ""}
+                onChange={(e) =>
+                  atualizarElemento(index, { texto: e.target.value })
+                }
+              />
+            </span>
             <p>Link</p>
             <Input
-              type="text"
+              type="url"
               value={elemento.link || ""}
               onChange={(e) =>
                 atualizarElemento(index, { link: e.target.value })
@@ -129,38 +158,57 @@ export default function EditorElemento({ index, elemento, atualizarElemento }) {
             elemento.largura === "big" ? "span-2" : ""
           }`}
         >
-          <select
-            name="size"
-            onChange={(e) =>
-              atualizarElemento(index, { largura: e.target.value })
-            }
-          >
-            <option value="small">1/2</option>
-            <option value="big" selected>
-              2/2
-            </option>
-          </select>
-          <h3>CorFundo</h3>
-          <input
-            type="color"
-            value={elemento.corFundo || "#ffffff"}
-            onChange={(e) =>
-              atualizarElemento(index, { corFundo: e.target.value })
-            }
-          />
-          <h3>Titulo</h3>
-          <Input
-            type="text"
-            value={elemento.titulo || ""}
-            onChange={(e) =>
-              atualizarElemento(index, { titulo: e.target.value })
-            }
-          />
-          <h3>Editar paragrafo</h3>
-          <TipTapEditor
-            content={elemento.paragrafo || ""}
-            onChange={(html) => atualizarElemento(index, { paragrafo: html })}
-          />
+          <div className="elemento-header">
+            <h3>Card</h3>
+            <span>
+              <label htmlFor="sizeSelect">Tamanho</label>
+              <select
+                id="sizeSelect"
+                name="size"
+                onChange={(e) =>
+                  atualizarElemento(index, { largura: e.target.value })
+                }
+              >
+                <option value="small">1/2</option>
+                <option value="big" selected>
+                  2/2
+                </option>
+              </select>
+            </span>
+          </div>
+          <span>
+            <label>Cor Fundo</label>
+            <input
+              type="checkbox"
+              onChange={(e) =>
+                atualizarElemento(index, { corFundo: "transparent" })
+              }
+            />
+            <input
+              type="color"
+              value={elemento.corFundo || "#ffffff"}
+              onChange={(e) =>
+                atualizarElemento(index, { corFundo: e.target.value })
+              }
+            />
+          </span>
+          <span>
+            <label>Titulo</label>
+            <TipTapEditor
+              tag="h2"
+              index={index}
+              content={elemento.texto || ""}
+              onChange={(html) => atualizarElemento(index, { titulo: html })}
+            />
+          </span>
+          <span>
+            <label>Paragrafo</label>
+            <TipTapEditor
+              index={index + "b"}
+              content={elemento.texto || ""}
+              onChange={(html) => atualizarElemento(index, { paragrafo: html })}
+            />
+          </span>
         </div>
       );
 
@@ -171,29 +219,28 @@ export default function EditorElemento({ index, elemento, atualizarElemento }) {
             elemento.largura === "big" ? "span-2" : ""
           }`}
         >
-          <select
-            name="size"
-            onChange={(e) =>
-              atualizarElemento(index, { largura: e.target.value })
-            }
-          >
-            <option value="small">1/2</option>
-            <option value="big" selected>
-              2/2
-            </option>
-          </select>
-          <h3>Imagem</h3>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={async (e) => {
-              const file = e.target.files[0];
-              if (!file) return;
-              const formData = new FormData();
-              formData.append("image", file);
-
-              atualizarElemento(index, { base64: await fileToBase64(file) });
-            }}
+          <div className="elemento-header">
+            <h3>Imagem</h3>
+            <span>
+              <label htmlFor="sizeSelect">Tamanho</label>
+              <select
+                id="sizeSelect"
+                name="size"
+                onChange={(e) =>
+                  atualizarElemento(index, { largura: e.target.value })
+                }
+              >
+                <option value="small">1/2</option>
+                <option value="big" selected>
+                  2/2
+                </option>
+              </select>
+            </span>
+          </div>
+          <EditorImagem
+            index={index}
+            elemento={elemento}
+            atualizarElemento={atualizarElemento}
           />
         </div>
       );
@@ -202,17 +249,10 @@ export default function EditorElemento({ index, elemento, atualizarElemento }) {
       return (
         <div className="editor-card span-2">
           <h3>Banner</h3>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={async (e) => {
-              const file = e.target.files[0];
-              if (!file) return;
-              const formData = new FormData();
-              formData.append("image", file);
-
-              atualizarElemento(index, { base64: await fileToBase64(file) });
-            }}
+          <EditorImagem
+            index={index}
+            elemento={elemento}
+            atualizarElemento={atualizarElemento}
           />
         </div>
       );

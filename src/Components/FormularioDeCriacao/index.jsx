@@ -23,7 +23,8 @@ export default function FormularioCriacao({
       const width = el.largura === "small" ? "50%" : "100%";
       let html = "";
 
-      if (el.tipo === "titulo") html = `<h1>${el.texto}</h1>`;
+      if (el.tipo === "titulo")
+        html = `<h1 style="font-family:comic sans">${el.texto}</h1>`;
       if (el.tipo === "paragrafo") html = `<p>${el.texto}</p>`;
       if (el.tipo === "card")
         html = `<div style="background-color: ${el.corFundo};border-radius: 5px;padding: 10px;box-shadow: 5px 5px 10px #0000003d;"><h2>${el.titulo}</h2><p>${el.paragrafo}</p></div>`;
@@ -32,7 +33,15 @@ export default function FormularioCriacao({
         html = `<img style="width:100%; max-width:100%;" src="cid:imagem${imgContador}"/>`;
       }
       if (el.tipo === "botao")
-        html = `<a href="${el.link}" target="_blank"><button>${el.texto}</button></a>`;
+        html = `<a href="${
+          el.link
+        }" target="_blank" style="text-align:center;text-decoration: none"><button style="display:block;margin:0 auto;color:${
+          el.corTexto
+        };background-color:${el.corFundo};border-radius:${
+          el.arredondamento + "px"
+        };padding:5px 10px;cursor:pointer;font-weight:bold;border:none;font-size:21px;box-shadow:5px 5px 10px #0000003d;text-align:center">${
+          el.texto
+        }</button></a>`;
       if (el.tipo === "banner") {
         imgContador++;
         html = `</td></tr></table><img style="width:100%" src="cid:imagem${imgContador}"/><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>`;
@@ -87,10 +96,9 @@ export default function FormularioCriacao({
       margin: 0 ;
       padding: 0 ;
       border: 0;
-      font-family: system-ui, Helvetica, sans-serif;
     }
   </style>
-  <div style="${tamplateGerador(
+  <div style="font-family: system-ui, Helvetica, sans-serif;${tamplateGerador(
     templateEmail
   )}; max-width: 800px; margin: auto;">
     <div style="background-color: ${colorBg}">

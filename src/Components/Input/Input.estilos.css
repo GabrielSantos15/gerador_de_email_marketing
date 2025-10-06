@@ -14,23 +14,7 @@
     outline: 1px solid var(--corPrimaria);
 }
 
-.input[type="color"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    padding: 0;
-    width: 30px;
-    aspect-ratio: 1/1;
+.input[type= "number"]{
     
-    outline: none;
-    border: none;
-    cursor: pointer;
-    background-color: transparent;
-}
-
-.input[type="color"]::-webkit-color-swatch {
-    padding: 0;
-    outline: none;
-    border: none;
-    border-radius: 5px;
+    max-width: fit-content;
 }

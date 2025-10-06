@@ -29,3 +29,24 @@ select{
   outline: none;
   border: 1px solid var(--cor1);
 }
+
+input[type="color"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 0;
+    width: 30px;
+    aspect-ratio: 1/1;
+    
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    padding: 0;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}

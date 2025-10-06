@@ -1,0 +1,30 @@
+.editorImagemContainer{
+    cursor: pointer;
+}
+
+.editorImagemContainer figure,
+.editorImagemContainer img {
+    object-fit: contain;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dropZoneImage{
+    width: 100%;
+    height: 100%;
+    border: 2px dashed #b1b1b150;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--cor1);
+}
+
+.dropZoneImage  i{
+    font-size: 2.5em;
+}
+
+.editorImagemContainer input[type="file"] {
+  display: none;
+}
