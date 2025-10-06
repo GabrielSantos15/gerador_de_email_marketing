@@ -3,6 +3,7 @@ import "./previl.estilos.css";
 
 export default function HtmlPrevil({ conteudo, imagens }) {
   let safeHtml = DOMPurify.sanitize(conteudo, {
+    ADD_TAGS: ["head"],
     ADD_ATTR: ["target", "rel"],
   });
 

@@ -5,7 +5,7 @@ import EditorImagem from "../EditorImagem";
 
 export default function EditorElemento({ index, elemento, atualizarElemento }) {
   switch (elemento.tipo) {
-    case "titulo":
+    case "texto":
       return (
         <div
           className={`editor-card ${
@@ -13,7 +13,7 @@ export default function EditorElemento({ index, elemento, atualizarElemento }) {
           }`}
         >
           <div className="elemento-header">
-            <h3>Titulo</h3>
+            <h3>Texto</h3>
             <span>
               <label htmlFor="sizeSelect">Tamanho</label>
               <select
@@ -32,49 +32,13 @@ export default function EditorElemento({ index, elemento, atualizarElemento }) {
           </div>
           <div>
             <TipTapEditor
-              id={"tituloInput" + index}
-              tag="h1"
+              id={"textoInput" + index}
               content={elemento.texto || ""}
               onChange={(html) => atualizarElemento(index, { texto: html })}
             />
           </div>
         </div>
       );
-
-    case "paragrafo":
-      return (
-        <div
-          className={`editor-card ${
-            elemento.largura === "big" ? "span-2" : ""
-          }`}
-        >
-          <div className="elemento-header">
-            <h3>Paragrafo</h3>
-            <span>
-              <label htmlFor="sizeSelect">Tamanho</label>
-              <select
-                id="sizeSelect"
-                tag="p"
-                name="size"
-                onChange={(e) =>
-                  atualizarElemento(index, { largura: e.target.value })
-                }
-              >
-                <option value="small">1/2</option>
-                <option value="big" selected>
-                  2/2
-                </option>
-              </select>
-            </span>
-          </div>
-          <TipTapEditor
-            index={index}
-            content={elemento.texto || ""}
-            onChange={(html) => atualizarElemento(index, { texto: html })}
-          />
-        </div>
-      );
-
     case "botao":
       return (
         <div
@@ -179,12 +143,6 @@ export default function EditorElemento({ index, elemento, atualizarElemento }) {
           <span>
             <label>Cor Fundo</label>
             <input
-              type="checkbox"
-              onChange={(e) =>
-                atualizarElemento(index, { corFundo: "transparent" })
-              }
-            />
-            <input
               type="color"
               value={elemento.corFundo || "#ffffff"}
               onChange={(e) =>
@@ -193,20 +151,10 @@ export default function EditorElemento({ index, elemento, atualizarElemento }) {
             />
           </span>
           <span>
-            <label>Titulo</label>
             <TipTapEditor
-              tag="h2"
               index={index}
               content={elemento.texto || ""}
-              onChange={(html) => atualizarElemento(index, { titulo: html })}
-            />
-          </span>
-          <span>
-            <label>Paragrafo</label>
-            <TipTapEditor
-              index={index + "b"}
-              content={elemento.texto || ""}
-              onChange={(html) => atualizarElemento(index, { paragrafo: html })}
+              onChange={(html) => atualizarElemento(index, { texto: html })}
             />
           </span>
         </div>

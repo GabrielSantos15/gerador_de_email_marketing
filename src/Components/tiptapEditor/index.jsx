@@ -10,6 +10,7 @@ import Color from "@tiptap/extension-color";
 import Link from "@tiptap/extension-link";
 import BulletList from "@tiptap/extension-bullet-list";
 import TextAlign from "@tiptap/extension-text-align";
+import Heading from "@tiptap/extension-heading"; // 👈 IMPORTANTE
 
 const colorList = [
   "#cc0000ff",
@@ -55,6 +56,7 @@ export default function TipTapEditor(props) {
     extensions: [
       StarterKit,
       TextStyle,
+      BackgroundColor,
       Color,
       Link.configure({
         openOnClick: false,
@@ -69,8 +71,11 @@ export default function TipTapEditor(props) {
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
+      Heading.configure({
+        levels: [1, 2, 3],
+      }), // 👈 Adicionado aqui
     ],
-    content: `<${props.tag || "p"}></${props.tag || "p"}>`,
+    content: ``,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       if (props.onChange) {
@@ -84,6 +89,7 @@ export default function TipTapEditor(props) {
   return (
     <div className="menuEditor">
       <span className="menuLabel">
+         <label>Texto</label>
         <input
           className="menuCheckboxInput"
           type="checkbox"
@@ -102,10 +108,58 @@ export default function TipTapEditor(props) {
         className="menuBotoes"
         style={{ display: menuVisivel ? "flex" : "none" }}
       >
+        {/* TÍTULO */}
+        <button
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 1 }).run()
+          }
+        >
+          <i className="fa-solid fa-heading"></i>1
+        </button>
+        <button
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
+          }
+        >
+          <i className="fa-solid fa-heading"></i>2
+        </button>
+
+        {/* NEGRITO */}
+        <button onClick={() => editor.chain().focus().toggleBold().run()}>
+          <i className="fa-solid fa-bold"></i>
+        </button>
+
+        {/* ITALICO */}
+        <button onClick={() => editor.chain().focus().toggleItalic().run()}>
+          <i class="fa-solid fa-italic"></i>
+        </button>
+
+        {/* Cor Texto  */}
+        <button className="colorButton">
+          <i className="fa-solid fa-droplet"></i>
+          <div className="colorSelect">
+            {renderColorOptions(editor)}
+            <input
+              type="color"
+              onChange={(e) =>
+                editor.chain().focus().setColor(e.target.value).run()
+              }
+              title="Escolher cor"
+            />
+          </div>
+        </button>
+
         {/* COR DE FUNDO */}
         <button className="colorButton">
           <i className="fa-solid fa-fill-drip"></i>
           <div className="colorSelect">
+            <button
+              onClick={(e) => {
+                editor.chain().focus().unsetBackgroundColor().run();
+              }}
+            >
+              Limpar
+            </button>
             {renderBackgroundOptions(editor)}
             <input
               type="color"
@@ -120,37 +174,12 @@ export default function TipTapEditor(props) {
             />
           </div>
         </button>
-        {/* NEGRITO */}
-        <button onClick={() => editor.chain().focus().toggleBold().run()}>
-          <i className="fa-solid fa-bold"></i>
-        </button>
-        {/* ITALICO */}
-        <button onClick={() => editor.chain().focus().toggleItalic().run()}>
-          <i class="fa-solid fa-italic"></i>
-        </button>
-        <button className="colorButton">
-          <i className="fa-solid fa-droplet"></i>
-          <div className="colorSelect">
-            {renderColorOptions(editor)}
-            <input
-              type="color"
-              onChange={(e) =>
-                editor.chain().focus().setColor(e.target.value).run()
-              }
-              title="Escolher cor"
-            />
-          </div>
-        </button>
         {/* LISTA (O elemento h1 não pode ser listado)*/}
-        {!(props.tag == "h1" || props.tag == "h2") ? (
-          <button
-            onClick={() => editor.chain().focus().toggleBulletList().run()}
-          >
-            <i class="fa-solid fa-list"></i>
-          </button>
-        ) : (
-          ""
-        )}
+
+        <button onClick={() => editor.chain().focus().toggleBulletList().run()}>
+          <i class="fa-solid fa-list"></i>
+        </button>
+
         {/* LINK */}
         <button
           onClick={() => {

@@ -8,24 +8,13 @@ export default function ButtonAdd({ functionOnClick }) {
         <div
           onClick={() =>
             functionOnClick({
-              tipo: "titulo",
+              tipo: "texto",
               texto: "",
               largura: "big",
             })
           }
         >
-          Titulo
-        </div>
-        <div
-          onClick={() =>
-            functionOnClick({
-              tipo: "paragrafo",
-              texto: "",
-              largura: "big",
-            })
-          }
-        >
-          Paragrafo
+          Texto
         </div>
         <div
           onClick={() =>
