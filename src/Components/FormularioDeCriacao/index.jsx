@@ -53,7 +53,7 @@ export default function FormularioCriacao({
         );
         // Se já tem dois, fecha a linha
         if (tempRow.length === 2) {
-          rows.push(`<tr style="padding:10px">${tempRow.join("")}</tr>`);
+          rows.push(`<tr >${tempRow.join("")}</tr>`);
           tempRow = [];
         }
       } else {
@@ -64,7 +64,7 @@ export default function FormularioCriacao({
         }
         // Elemento 100% ocupa linha inteira
         rows.push(
-          `<tr style="padding:10px"><td width="100%;" valign="center" colspan="2" style="padding: 10px">${html}</td></tr>`
+          `<tr><td width="100%;" valign="center" colspan="2" style="padding: 10px">${html}</td></tr>`
         );
       }
     });
@@ -108,7 +108,7 @@ export default function FormularioCriacao({
       <div style="font-family: system-ui, Helvetica, sans-serif; ${tamplateGerador(
         templateEmail
       )}; max-width: 800px; margin: auto;">
-        <div style="background-color: ${colorBg}">
+        <div style="background-color: ${colorBg}; padding:20px">
           ${conteudoHtml}
         </div>
       </div>
@@ -170,7 +170,7 @@ export default function FormularioCriacao({
   function tamplateGerador(template) {
     switch (template) {
       case "padrao":
-        return "padding: 20px; box-sizing: border-box;";
+        return
       case "corporativo":
         return `padding: 20px; box-sizing: border-box; margin: auto; font-family: Arial, sans-serif; background-color: #f9f9f9;`;
       case "seguranca":

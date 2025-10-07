@@ -13,13 +13,24 @@ import TextAlign from "@tiptap/extension-text-align";
 import Heading from "@tiptap/extension-heading"; // 👈 IMPORTANTE
 
 const colorList = [
-  "#cc0000ff",
-  "#00c900ff",
-  "#1500ceff",
-  "#FFA500",
-  "#b700ffff",
   "#000000",
-  "#ffffff",
+  "#444444",
+  "#CCCCCC",
+  "#FFFFFF",
+  "#0015ceff",
+  "#506affff",
+  "#00ccffff",
+  "#70ffffff",
+  "#a000dfff",
+  "#a066f1ff",
+  "#187900ff",
+  "#67ff6eff",
+  "#ffbb00ff",
+  "#ffe867ff",
+  "#ff3300ff",
+  "#ff7755ff",
+  "#8b0000ff",
+  "#f73d53ff",
 ];
 
 function renderColorOptions(editor) {
@@ -89,7 +100,7 @@ export default function TipTapEditor(props) {
   return (
     <div className="menuEditor">
       <span className="menuLabel">
-         <label>Texto</label>
+        <label>Texto</label>
         <input
           className="menuCheckboxInput"
           type="checkbox"
@@ -101,7 +112,7 @@ export default function TipTapEditor(props) {
           className="menuCheckboxLabel"
           htmlFor={"menuCheckbox" + props.index}
         >
-          <i class="fa-solid fa-pen-to-square"></i>
+          <i className="fa-solid fa-pen-to-square"></i>
         </label>
       </span>
       <div
@@ -131,7 +142,7 @@ export default function TipTapEditor(props) {
 
         {/* ITALICO */}
         <button onClick={() => editor.chain().focus().toggleItalic().run()}>
-          <i class="fa-solid fa-italic"></i>
+          <i className="fa-solid fa-italic"></i>
         </button>
 
         {/* Cor Texto  */}
@@ -153,13 +164,6 @@ export default function TipTapEditor(props) {
         <button className="colorButton">
           <i className="fa-solid fa-fill-drip"></i>
           <div className="colorSelect">
-            <button
-              onClick={(e) => {
-                editor.chain().focus().unsetBackgroundColor().run();
-              }}
-            >
-              Limpar
-            </button>
             {renderBackgroundOptions(editor)}
             <input
               type="color"
@@ -172,12 +176,19 @@ export default function TipTapEditor(props) {
               }
               title="Escolher cor de fundo"
             />
+            <button
+              onClick={(e) => {
+                editor.chain().focus().unsetBackgroundColor().run();
+              }}
+            >
+              <i className="fa-solid fa-eraser"></i>
+            </button>
           </div>
         </button>
         {/* LISTA (O elemento h1 não pode ser listado)*/}
 
         <button onClick={() => editor.chain().focus().toggleBulletList().run()}>
-          <i class="fa-solid fa-list"></i>
+          <i className="fa-solid fa-list"></i>
         </button>
 
         {/* LINK */}
@@ -207,6 +218,11 @@ export default function TipTapEditor(props) {
           onClick={() => editor.chain().focus().setTextAlign("right").run()}
         >
           <i className="fa-solid fa-align-right"></i>
+        </button>
+        <button
+          onClick={() => editor.chain().focus().setTextAlign("justify").run()}
+        >
+          <i className="fa-solid fa-align-justify"></i>
         </button>
       </div>
 

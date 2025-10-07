@@ -21,10 +21,11 @@
 
 }
 
-.menuCheckboxInput{
+.menuCheckboxInput {
     display: none;
 }
-.menuCheckboxInput:checked ~ .menuCheckboxLabel {
+
+.menuCheckboxInput:checked~.menuCheckboxLabel {
     color: var(--corPrimaria);
 }
 
@@ -51,7 +52,7 @@
     position: absolute;
     top: 100%;
 
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     padding: 5px;
     gap: 2px;
 
@@ -63,25 +64,26 @@
 
 span.colorSelectOption,
 .colorSelect input[type="color"] {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     background-color: var(--color);
     display: inline-block;
     cursor: pointer;
 }
 
-.colorSelect input[type="color"]{
+.colorSelect input[type="color"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     position: relative;
     appearance: none;
-    
+
     outline: none;
     border: none;
     cursor: pointer;
-    background-color:transparent;
+    background-color: transparent;
 }
-.colorSelect input[type="color"]::before{
+
+.colorSelect input[type="color"]::before {
     content: '🎨';
     position: absolute;
     top: 50%;
@@ -111,7 +113,7 @@ span.colorSelectOption,
 
 .ProseMirror p {
     word-break: break-all;
-    
+
 }
 
 .editorTipTap {
