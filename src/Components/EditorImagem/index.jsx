@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "./editor-imagem.estilos.css";
 
-export default function EditorImagem({ index, elemento, atualizarElemento }) {
+export default function EditorImagem({ elemento, atualizarElemento }) {
+  const dropZoneRef = useRef(null);
+
   useEffect(() => {
-    const dropZone = document.querySelector("#dropZoneImage" + index);
+    const dropZone = dropZoneRef.current;
     if (!dropZone) return;
 
     const handleDrop = async (event) => {
@@ -11,16 +13,19 @@ export default function EditorImagem({ index, elemento, atualizarElemento }) {
       const file = event.dataTransfer.files[0];
       if (!file) return;
       const base64 = await fileToBase64(file);
-      atualizarElemento(index, { base64 });
+      atualizarElemento(elemento.id, { base64 });
     };
 
+    const handleDragOver = (e) => e.preventDefault();
+
     dropZone.addEventListener("drop", handleDrop);
-    dropZone.addEventListener("dragover", (e) => e.preventDefault());
+    dropZone.addEventListener("dragover", handleDragOver);
 
     return () => {
       dropZone.removeEventListener("drop", handleDrop);
+      dropZone.removeEventListener("dragover", handleDragOver);
     };
-  }, [index, atualizarElemento]);
+  }, [elemento.id, atualizarElemento]);
 
   function fileToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -36,27 +41,29 @@ export default function EditorImagem({ index, elemento, atualizarElemento }) {
   return (
     <div className="editorImagemContainer">
       <input
-        id={"imgInput" + index}
+        id={"imgInput" + elemento.id}
         type="file"
         accept="image/*"
         onChange={async (e) => {
           const file = e.target.files[0];
           if (!file) return;
-          atualizarElemento(index, { base64: await fileToBase64(file) });
+          atualizarElemento(elemento.id, { base64: await fileToBase64(file) });
         }}
       />
       <label
-        htmlFor={"imgInput" + index}
-        id={"dropZoneImage" + index}
+        htmlFor={"imgInput" + elemento.id}
+        id={"dropZoneImage" + elemento.id}
         className="dropZoneImageContainer"
+        ref={dropZoneRef}
       >
         <div className={`dropZoneImage ${elemento.base64 ? "hidden" : ""}`}>
-          <i class="fa-solid fa-image"></i>
+          <i className="fa-solid fa-image"></i>
           <p>Selecione uma imagem</p>
         </div>
         <img
           className={`editorImagemPrevil ${elemento.base64 ? "" : "hidden"}`}
           src={elemento.base64 ? elemento.base64 : ""}
+          alt=""
         />
       </label>
     </div>

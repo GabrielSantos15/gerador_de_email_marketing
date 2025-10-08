@@ -23,8 +23,7 @@ export default function FormularioCriacao({
       const width = el.largura === "small" ? "50%" : "100%";
       let html = "";
 
-      if (el.tipo === "texto")
-        html = `<p>${el.texto}</p>`;
+      if (el.tipo === "texto") html = `<p>${el.texto}</p>`;
       if (el.tipo === "card")
         html = `<div style="background-color: ${el.corFundo};border-radius: 5px;padding: 10px;box-shadow: 5px 5px 10px #0000003d;"><p>${el.texto}</p></div>`;
       if (el.tipo === "imagem") {
@@ -124,12 +123,20 @@ export default function FormularioCriacao({
     setElementos(atualizados);
   };
 
-  const atualizarElemento = (index, novosCampos) => {
-    const atualizados = elementos.map((el, i) =>
-      i === index ? { ...el, ...novosCampos } : el
-    );
+  const removerElemento = (idElemento) => {
+    // Filtra o array, mantendo apenas os elementos com ID  diferente
+    const atualizados = elementos.filter((el) => el.id !== idElemento);
     setElementos(atualizados);
   };
+
+const atualizarElemento = (idParaAtualizar, novosCampos) => {
+  const atualizados = elementos.map((el) =>
+    el.id === idParaAtualizar
+      ? { ...el, ...novosCampos } 
+      : el 
+  );
+  setElementos(atualizados);
+};
 
   return (
     <section className="formulario-criacao">
@@ -154,11 +161,13 @@ export default function FormularioCriacao({
         </span>
       </article>
       <div className="elementos-lista">
-        {elementos.map((el, i) => (
+        {elementos.map((el) => (
           <EditorElemento
-            index={i}
+            key={el.id}
             elemento={el}
             atualizarElemento={atualizarElemento}
+            // Passamos o ID do elemento para a função de remoção
+            removerElemento={() => removerElemento(el.id)}
           />
         ))}
       </div>
@@ -170,7 +179,7 @@ export default function FormularioCriacao({
   function tamplateGerador(template) {
     switch (template) {
       case "padrao":
-        return
+        return;
       case "corporativo":
         return `padding: 20px; box-sizing: border-box; margin: auto; font-family: Arial, sans-serif; background-color: #f9f9f9;`;
       case "seguranca":

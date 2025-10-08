@@ -1,16 +1,32 @@
 import "./buttonAdd.estilos.css";
 
 export default function ButtonAdd({ functionOnClick }) {
+
+  // Função auxiliar para injetar valores Padrão
+  const montarElemento = (baseElement) => {
+    const elemento = {
+      // ID único 
+      id: Date.now() + Math.random(),
+      //  Padrão de largura
+      largura: "big",
+
+      // Mantém as propriedades específicas
+      ...baseElement,
+    };
+    functionOnClick(elemento);
+  };
+
   return (
     <div className="container-select-elemento">
-      <button className="buttonAdd"><i class="fa-solid fa-plus"></i></button>
+      <button className="buttonAdd">
+        <i class="fa-solid fa-plus"></i>
+      </button>
       <article className="select-container">
         <div
           onClick={() =>
-            functionOnClick({
+            montarElemento({
               tipo: "texto",
-              texto: "",
-              largura: "big",
+              texto: ""
             })
           }
         >
@@ -18,12 +34,11 @@ export default function ButtonAdd({ functionOnClick }) {
         </div>
         <div
           onClick={() =>
-            functionOnClick({
+            montarElemento({
               tipo: "card",
               titulo: "",
               paragrafo: "",
-              corFundo: "#fff",
-              largura: "big",
+              corFundo: "#fff"
             })
           }
         >
@@ -31,13 +46,12 @@ export default function ButtonAdd({ functionOnClick }) {
         </div>
         <div
           onClick={() =>
-            functionOnClick({
+            montarElemento({
               tipo: "botao",
               texto: "Acessar",
               corFundo: "#e00043",
               corTexto: "#ffffff",
-              arredondamento: 5,
-              largura: "big",
+              arredondamento: 5
             })
           }
         >
@@ -45,10 +59,9 @@ export default function ButtonAdd({ functionOnClick }) {
         </div>
         <div
           onClick={() =>
-            functionOnClick({
+            montarElemento({
               tipo: "imagem",
-              foto: "",
-              largura: "big",
+              foto: ""
             })
           }
         >
@@ -56,10 +69,9 @@ export default function ButtonAdd({ functionOnClick }) {
         </div>
         <div
           onClick={() =>
-            functionOnClick({
+            montarElemento({
               tipo: "banner",
-              foto: "",
-              largura: "big",
+              foto: ""
             })
           }
         >
