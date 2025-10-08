@@ -23,21 +23,31 @@ app.post("/send-email", async (req, res) => {
     },
   });
 
-  // Monta os attachments a partir do array de imagens
-  const attachments = imagens.map((img, index) => ({
-    filename: "imagem" + (index + 1) + ".jpg",
-    content: img.base64,
+  // Monta os attachments a partir do array de imagens (essas fotos são inseridas como anexo e mostradas no html)
+const attachments = imagens.map((img, index) => {
+  // divide as partes da url base64 (tipo e codigo)
+  const matches = img.base64.match(/^data:(image\/\w+);base64,(.+)$/);
+  if (!matches) return null;
+
+  const mimeType = matches[1]; 
+  const base64Data = matches[2];
+
+  return {
+    filename: `imagem${index + 1}.${mimeType.split("/")[1]}`,
+    content: base64Data,
     encoding: "base64",
-    cid: "imagem" + (index + 1),
-  }));
+    cid: `imagem${index + 1}`,
+    contentType: mimeType,
+  };
+}).filter(Boolean);
+
 
   let mailOptions = {
     from: process.env.SMTP_USER,
     to,
     subject,
     html,
-    text: "Parce que algo deu errado 😥",
-    attachments, // <-- aqui!
+    attachments, 
   };
 
   try {

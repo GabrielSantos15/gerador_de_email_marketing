@@ -108,7 +108,7 @@ export default function FormularioCriacao({
       <div style="font-family: system-ui, Helvetica, sans-serif; ${tamplateGerador(
         templateEmail
       )}; max-width: 800px; margin: auto;">
-        <div style="background-color: ${colorBg}; padding:20px">
+        <div style="background-color: ${colorBg};">
           ${conteudoHtml}
         </div>
       </div>

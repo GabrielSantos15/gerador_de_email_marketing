@@ -26,8 +26,7 @@ export default function EditorImagem({ index, elemento, atualizarElemento }) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
-        const base64 = reader.result.split(",")[1];
-        resolve(base64);
+        resolve(reader.result);
       };
       reader.onerror = reject;
       reader.readAsDataURL(file);
@@ -57,9 +56,7 @@ export default function EditorImagem({ index, elemento, atualizarElemento }) {
         </div>
         <img
           className={`editorImagemPrevil ${elemento.base64 ? "" : "hidden"}`}
-          src={
-            elemento.base64 ? "data:image/jpeg;base64," + elemento.base64 : ""
-          }
+          src={elemento.base64 ? elemento.base64 : ""}
         />
       </label>
     </div>

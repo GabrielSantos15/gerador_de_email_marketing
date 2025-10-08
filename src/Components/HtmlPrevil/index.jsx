@@ -10,7 +10,7 @@ export default function HtmlPrevil({ conteudo, imagens }) {
   // Filtra só imagens e banners
 
   imagens.forEach((img, idx) => {
-    const src = `data:image/png;base64,${img.base64}`;
+    const src = `${img.base64}`;
     safeHtml = safeHtml.replaceAll(`cid:imagem${idx + 1}`, src);
   });
 

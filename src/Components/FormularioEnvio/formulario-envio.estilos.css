@@ -1,3 +1,19 @@
-.formulario-envio{
+#formularioEnvioCloseLabel{
+    left: -50px;
+    position: absolute;
+    background-color: var(--cor2);
+    width: 50px;
 
+    border-radius: 5px 0  0 5px;
+}
+
+#formularioEnvioClose{
+    display: none;
+}
+.formulario-envio{
+    position: relative;
+    transition: .5s ease-in;
+}
+.formulario-envio:has(#formularioEnvioClose:checked){
+    transform: translate(100%);
 }
