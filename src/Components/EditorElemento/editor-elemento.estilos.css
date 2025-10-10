@@ -28,10 +28,15 @@
   text-align: right;
 }
 
+.elemento-actions i{
+  cursor: pointer;
+}
 
+.elemento-actions i:hover{
+  color: var(--corPrimaria);
+}
 
 .elemento-actions ul{
-  display: none;
   position: absolute; 
   right: 0;
   background-color: var(--cor3);
@@ -39,15 +44,27 @@
   border-radius: 5px;
   padding: 5px;
   border: 1px solid var(--corPrimaria);
-
+  z-index: 10;
   list-style: none; 
 }
-.elemento-actions:hover ul{
-  display: block;
-}
+
 .elemento-actions ul li{
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
   cursor: pointer;
+}
+.overlay{
+  position: fixed;
+  inset: 0;
+   z-index: 9;
+}
+
+.codigoTextArea{
+  padding: 5px;
+  background-color: #000;
+  color: #f5f5f5;
+  caret-color: var(--corPrimaria);
+width: 100%;
+  resize: vertical;
 }

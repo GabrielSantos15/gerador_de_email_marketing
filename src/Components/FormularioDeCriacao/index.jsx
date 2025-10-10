@@ -3,6 +3,7 @@ import "./formulario-criacao.estilos.css";
 import ButtonAdd from "../ButtonAdd";
 import EditorElemento from "../EditorElemento";
 import Input from "../Input";
+import DOMPurify from "dompurify";
 
 export default function FormularioCriacao({
   elementos,
@@ -20,29 +21,37 @@ export default function FormularioCriacao({
     let tempRow = [];
 
     elementos.forEach((el) => {
-      const width = el.largura === "small" ? "50%" : "100%";
       let html = "";
 
-      if (el.tipo === "texto") html = `<p>${el.texto}</p>`;
-      if (el.tipo === "card")
-        html = `<div style="background-color: ${el.corFundo};border-radius: 5px;padding: 10px;box-shadow: 5px 5px 10px #0000003d;"><p>${el.texto}</p></div>`;
-      if (el.tipo === "imagem") {
-        imgContador++;
-        html = `<img style="width:100%; max-width:100%;" src="cid:imagem${imgContador}"/>`;
-      }
-      if (el.tipo === "botao")
-        html = `<a href="${
-          el.link
-        }" target="_blank" style="text-align:center;text-decoration: none"><button style="display:block;margin:0 auto;color:${
-          el.corTexto
-        };background-color:${el.corFundo};border-radius:${
-          el.arredondamento + "px"
-        };padding:5px 10px;cursor:pointer;font-weight:bold;border:none;font-size:21px;box-shadow:5px 5px 10px #0000003d;text-align:center">${
-          el.texto
-        }</button></a>`;
-      if (el.tipo === "banner") {
-        imgContador++;
-        html = `</td></tr></table><img style="width:100%" src="cid:imagem${imgContador}"/><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>`;
+      switch (el.tipo) {
+        case "texto":
+          html = `<p>${el.texto}</p>`;
+          break;
+        case "card":
+          html = `<div style="background-color: ${el.corFundo};border-radius: 5px;padding: 10px;box-shadow: 5px 5px 10px #0000003d;"><p>${el.texto}</p></div>`;
+          break;
+        case "imagem":
+          imgContador++;
+          html = `<img style="width:100%; max-width:100%;" src="cid:imagem${imgContador}"/>`;
+          break;
+        case "botao":
+          html = `<a href="${
+            el.link
+          }" target="_blank" style="text-align:center;text-decoration: none"><button style="display:block;margin:0 auto;color:${
+            el.corTexto
+          };background-color:${el.corFundo};border-radius:${
+            el.arredondamento + "px"
+          };padding:5px 10px;cursor:pointer;font-weight:bold;border:none;font-size:21px;box-shadow:5px 5px 10px #0000003d;text-align:center">${
+            el.texto
+          }</button></a>`;
+          break;
+        case "banner":
+          imgContador++;
+          html = `</td></tr></table><img style="width:100%" src="cid:imagem${imgContador}"/><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>`;
+          break;
+        case "html":
+          html = `${el.codigo}`;
+          break;
       }
 
       // Se largura 50%, adiciona à linha temporária
@@ -108,12 +117,12 @@ export default function FormularioCriacao({
         templateEmail
       )}; max-width: 800px; margin: auto;">
         <div style="background-color: ${colorBg};">
-          ${conteudoHtml}
+        ${DOMPurify.sanitize(conteudoHtml)}
         </div>
       </div>
     </body>
   </html>
-`;
+      `;
 
     setHtml(htmlFinal);
   }, [elementos, colorBg, setHtml, templateEmail]);
@@ -129,14 +138,12 @@ export default function FormularioCriacao({
     setElementos(atualizados);
   };
 
-const atualizarElemento = (idParaAtualizar, novosCampos) => {
-  const atualizados = elementos.map((el) =>
-    el.id === idParaAtualizar
-      ? { ...el, ...novosCampos } 
-      : el 
-  );
-  setElementos(atualizados);
-};
+  const atualizarElemento = (idParaAtualizar, novosCampos) => {
+    const atualizados = elementos.map((el) =>
+      el.id === idParaAtualizar ? { ...el, ...novosCampos } : el
+    );
+    setElementos(atualizados);
+  };
 
   return (
     <section className="formulario-criacao">
@@ -179,7 +186,7 @@ const atualizarElemento = (idParaAtualizar, novosCampos) => {
   function tamplateGerador(template) {
     switch (template) {
       case "padrao":
-        return;
+        return "";
       case "corporativo":
         return `padding: 20px; box-sizing: border-box; margin: auto; font-family: Arial, sans-serif; background-color: #f9f9f9;`;
       case "seguranca":

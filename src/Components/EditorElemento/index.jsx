@@ -2,6 +2,7 @@ import "./editor-elemento.estilos.css";
 import TipTapEditor from "../tiptapEditor";
 import Input from "../Input";
 import EditorImagem from "../EditorImagem";
+import { useState } from "react";
 
 function SelectTamanho({ value, onChange }) {
   return (
@@ -24,14 +25,21 @@ function EditorCard({ children, largura }) {
 }
 
 function ElementoActions({ elemento, removerElemento }) {
+  const [showActions, setShowActions] = useState(false);
   return (
     <div className="elemento-actions">
-      <i className="fas fa-ellipsis-v"></i>
-      <ul>
-        <li onClick={() => removerElemento(elemento.id)}>
-          <i className="fa-solid fa-x"></i> Delete
-        </li>
-      </ul>
+      <i
+        className="fas fa-ellipsis-v"
+        onClick={() => setShowActions(!showActions)}
+      ></i>
+      <div className="menuActions" style={{ display: showActions ? "block" : "none" }}>
+        <ul >
+          <li onClick={() => removerElemento(elemento.id)}>
+            <i className="fa-solid fa-x"></i> Delete
+          </li>
+        </ul>
+        <span className="overlay" onClick={() => setShowActions(!showActions)}></span>
+      </div>
     </div>
   );
 }
@@ -214,6 +222,27 @@ export default function EditorElemento({
             elemento={elemento}
             atualizarElemento={atualizarElemento}
           />
+        </EditorCard>
+      );
+    case "html":
+      return (
+        <EditorCard largura={elemento.largura}>
+          <div className="elemento-header">
+            <h3>HTML</h3>
+            <ElementoActions
+              elemento={elemento}
+              removerElemento={removerElemento}
+            />
+          </div>
+          <textarea
+            className="codigoTextArea"
+            value={elemento.codigo || ""}
+            onChange={(e) =>
+              atualizarElemento(elemento.id, { codigo: e.target.value })
+            }
+            placeholder="Cole seu código HTML aqui (Lembre-se de usar estilos inline compativeis com email!)"
+            style={{ width: "100%", height: "150px" }}
+          ></textarea>
         </EditorCard>
       );
     default:

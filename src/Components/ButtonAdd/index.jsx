@@ -1,11 +1,10 @@
 import "./buttonAdd.estilos.css";
 
 export default function ButtonAdd({ functionOnClick }) {
-
   // Função auxiliar para injetar valores Padrão
   const montarElemento = (baseElement) => {
     const elemento = {
-      // ID único 
+      // ID único
       id: Date.now() + Math.random(),
       //  Padrão de largura
       largura: "big",
@@ -26,7 +25,7 @@ export default function ButtonAdd({ functionOnClick }) {
           onClick={() =>
             montarElemento({
               tipo: "texto",
-              texto: ""
+              texto: "",
             })
           }
         >
@@ -38,7 +37,7 @@ export default function ButtonAdd({ functionOnClick }) {
               tipo: "card",
               titulo: "",
               paragrafo: "",
-              corFundo: "#ffffff"
+              corFundo: "#ffffff",
             })
           }
         >
@@ -51,7 +50,7 @@ export default function ButtonAdd({ functionOnClick }) {
               texto: "Acessar",
               corFundo: "#e00043",
               corTexto: "#ffffff",
-              arredondamento: 5
+              arredondamento: 5,
             })
           }
         >
@@ -61,7 +60,7 @@ export default function ButtonAdd({ functionOnClick }) {
           onClick={() =>
             montarElemento({
               tipo: "imagem",
-              foto: ""
+              foto: "",
             })
           }
         >
@@ -71,11 +70,21 @@ export default function ButtonAdd({ functionOnClick }) {
           onClick={() =>
             montarElemento({
               tipo: "banner",
-              foto: ""
+              foto: "",
             })
           }
         >
           Banner
+        </div>
+        <div
+          onClick={() =>
+            montarElemento({
+              tipo: "html",
+              codigo: "",
+            })
+          }
+        >
+          HTML Personalizado
         </div>
       </article>
     </div>

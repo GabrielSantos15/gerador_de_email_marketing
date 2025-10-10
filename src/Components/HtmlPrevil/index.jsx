@@ -2,23 +2,18 @@ import DOMPurify from "dompurify";
 import "./previl.estilos.css";
 
 export default function HtmlPrevil({ conteudo, imagens }) {
-  let safeHtml = DOMPurify.sanitize(conteudo, {
-    ADD_TAGS: ["head"],
-    ADD_ATTR: ["target", "rel"],
-  });
-
-  // Filtra só imagens e banners
-
+  console.log(conteudo);
+  // converte as imagens para base64
   imagens.forEach((img, idx) => {
     const src = `${img.base64}`;
-    safeHtml = safeHtml.replaceAll(`cid:imagem${idx + 1}`, src);
+    conteudo = conteudo.replaceAll(`cid:imagem${idx + 1}`, src);
   });
 
   return (
     <iframe
       className="previl-html"
       title="preview"
-      srcDoc={safeHtml}
+      srcDoc={conteudo}
       sandbox="allow-popups allow-scripts"
     />
   );
