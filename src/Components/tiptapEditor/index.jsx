@@ -7,10 +7,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { BackgroundColor, TextStyle } from "@tiptap/extension-text-style";
 import Highlight from "@tiptap/extension-highlight";
 import Color from "@tiptap/extension-color";
-import Link from "@tiptap/extension-link";
-import BulletList from "@tiptap/extension-bullet-list";
 import TextAlign from "@tiptap/extension-text-align";
-import Heading from "@tiptap/extension-heading"; // 👈 IMPORTANTE
 
 const colorList = [
   "#000000",
@@ -69,24 +66,10 @@ export default function TipTapEditor(props) {
       TextStyle,
       BackgroundColor,
       Color,
-      Link.configure({
-        openOnClick: false,
-        autolink: true,
-        linkOnPaste: true,
-        HTMLAttributes: {
-          target: "_blank",
-          rel: "noopener noreferrer",
-        },
-      }),
-      BulletList,
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
-      Heading.configure({
-        levels: [1, 2, 3],
-      }), // 👈 Adicionado aqui
     ],
-    content: ``,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       if (props.onChange) {
@@ -176,13 +159,13 @@ export default function TipTapEditor(props) {
               }
               title="Escolher cor de fundo"
             />
-            <button
+            <span
               onClick={(e) => {
                 editor.chain().focus().unsetBackgroundColor().run();
               }}
             >
               <i className="fa-solid fa-eraser"></i>
-            </button>
+            </span>
           </div>
         </button>
         {/* LISTA (O elemento h1 não pode ser listado)*/}

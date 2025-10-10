@@ -16,4 +16,5 @@
 }
 .formulario-envio:has(#formularioEnvioClose:checked){
     transform: translate(100%);
+    /* width: 0; */
 }

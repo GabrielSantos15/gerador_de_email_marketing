@@ -19,7 +19,7 @@ export default function ButtonAdd({ functionOnClick }) {
   return (
     <div className="container-select-elemento">
       <button className="buttonAdd">
-        <i class="fa-solid fa-plus"></i>
+        <i className="fa-solid fa-plus"></i>
       </button>
       <article className="select-container">
         <div
@@ -38,7 +38,7 @@ export default function ButtonAdd({ functionOnClick }) {
               tipo: "card",
               titulo: "",
               paragrafo: "",
-              corFundo: "#fff"
+              corFundo: "#ffffff"
             })
           }
         >

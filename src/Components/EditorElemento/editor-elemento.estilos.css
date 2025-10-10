@@ -22,3 +22,32 @@
   align-items: center;
   gap: 5px;
 }
+
+.elemento-actions{
+  position: relative;
+  text-align: right;
+}
+
+
+
+.elemento-actions ul{
+  display: none;
+  position: absolute; 
+  right: 0;
+  background-color: var(--cor3);
+  box-shadow: 5px 5px 10px #00000011, inset -5px -5px 10px #ffffffb7;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid var(--corPrimaria);
+
+  list-style: none; 
+}
+.elemento-actions:hover ul{
+  display: block;
+}
+.elemento-actions ul li{
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  cursor: pointer;
+}

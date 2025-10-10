@@ -19,7 +19,7 @@ export default function HtmlPrevil({ conteudo, imagens }) {
       className="previl-html"
       title="preview"
       srcDoc={safeHtml}
-      sandbox="allow-popups allow-same-origin"
+      sandbox="allow-popups allow-scripts"
     />
   );
 }

@@ -19,6 +19,7 @@ app.post("/send-email", async (req, res) => {
       pass: process.env.SMTP_PASS,
     },
     tls: {
+      // retirar essa parte se estiver usando em produção
       rejectUnauthorized: false,
     },
   });

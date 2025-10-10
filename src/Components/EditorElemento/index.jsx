@@ -7,12 +7,7 @@ function SelectTamanho({ value, onChange }) {
   return (
     <span>
       <label htmlFor="sizeSelect">Tamanho</label>
-      <select
-        id="sizeSelect"
-        name="size"
-        value={value}
-        onChange={onChange}
-      >
+      <select id="sizeSelect" name="size" value={value} onChange={onChange}>
         <option value="small">1/2</option>
         <option value="big">2/2</option>
       </select>
@@ -28,6 +23,19 @@ function EditorCard({ children, largura }) {
   );
 }
 
+function ElementoActions({ elemento, removerElemento }) {
+  return (
+    <div className="elemento-actions">
+      <i className="fas fa-ellipsis-v"></i>
+      <ul>
+        <li onClick={() => removerElemento(elemento.id)}>
+          <i className="fa-solid fa-x"></i> Delete
+        </li>
+      </ul>
+    </div>
+  );
+}
+
 export default function EditorElemento({
   elemento,
   atualizarElemento,
@@ -39,20 +47,23 @@ export default function EditorElemento({
         <EditorCard largura={elemento.largura}>
           <div className="elemento-header">
             <h3>Texto</h3>
-            <SelectTamanho
-              value={elemento.largura}
-              onChange={e =>
-                atualizarElemento(elemento.id, { largura: e.target.value })
-              }
-            />
-            <span onClick={removerElemento}>DELETE</span>
+            <span>
+              <SelectTamanho
+                value={elemento.largura}
+                onChange={(e) =>
+                  atualizarElemento(elemento.id, { largura: e.target.value })
+                }
+              />
+              <ElementoActions
+                elemento={elemento}
+                removerElemento={removerElemento}
+              />
+            </span>
           </div>
           <TipTapEditor
             index={elemento.id}
             content={elemento.texto || ""}
-            onChange={html =>
-              atualizarElemento(elemento.id, { texto: html })
-            }
+            onChange={(html) => atualizarElemento(elemento.id, { texto: html })}
           />
         </EditorCard>
       );
@@ -61,19 +72,25 @@ export default function EditorElemento({
         <EditorCard largura={elemento.largura}>
           <div className="elemento-header">
             <h3>Botão</h3>
-            <SelectTamanho
-              value={elemento.largura}
-              onChange={e =>
-                atualizarElemento(elemento.id, { largura: e.target.value })
-              }
-            />
+            <span>
+              <SelectTamanho
+                value={elemento.largura}
+                onChange={(e) =>
+                  atualizarElemento(elemento.id, { largura: e.target.value })
+                }
+              />
+              <ElementoActions
+                elemento={elemento}
+                removerElemento={removerElemento}
+              />
+            </span>
           </div>
           <span>
             <p>Fundo</p>
             <Input
               type="color"
               value={elemento.corFundo}
-              onChange={e =>
+              onChange={(e) =>
                 atualizarElemento(elemento.id, { corFundo: e.target.value })
               }
             />
@@ -83,7 +100,7 @@ export default function EditorElemento({
             <Input
               type="color"
               value={elemento.corTexto}
-              onChange={e =>
+              onChange={(e) =>
                 atualizarElemento(elemento.id, { corTexto: e.target.value })
               }
             />
@@ -93,15 +110,17 @@ export default function EditorElemento({
             <Input
               type="number"
               value={elemento.arredondamento}
-              onChange={e =>
-                atualizarElemento(elemento.id, { arredondamento: e.target.value })
+              onChange={(e) =>
+                atualizarElemento(elemento.id, {
+                  arredondamento: e.target.value,
+                })
               }
             />
             <p>Texto</p>
             <Input
               type="text"
               value={elemento.texto || ""}
-              onChange={e =>
+              onChange={(e) =>
                 atualizarElemento(elemento.id, { texto: e.target.value })
               }
             />
@@ -110,7 +129,7 @@ export default function EditorElemento({
           <Input
             type="url"
             value={elemento.link || ""}
-            onChange={e =>
+            onChange={(e) =>
               atualizarElemento(elemento.id, { link: e.target.value })
             }
           />
@@ -121,19 +140,25 @@ export default function EditorElemento({
         <EditorCard largura={elemento.largura}>
           <div className="elemento-header">
             <h3>Card</h3>
-            <SelectTamanho
-              value={elemento.largura}
-              onChange={e =>
-                atualizarElemento(elemento.id, { largura: e.target.value })
-              }
-            />
+            <span>
+              <SelectTamanho
+                value={elemento.largura}
+                onChange={(e) =>
+                  atualizarElemento(elemento.id, { largura: e.target.value })
+                }
+              />
+              <ElementoActions
+                elemento={elemento}
+                removerElemento={removerElemento}
+              />
+            </span>
           </div>
           <span>
             <label>Cor Fundo</label>
             <input
               type="color"
               value={elemento.corFundo || "#ffffff"}
-              onChange={e =>
+              onChange={(e) =>
                 atualizarElemento(elemento.id, { corFundo: e.target.value })
               }
             />
@@ -142,7 +167,7 @@ export default function EditorElemento({
             <TipTapEditor
               index={elemento.id}
               content={elemento.texto || ""}
-              onChange={html =>
+              onChange={(html) =>
                 atualizarElemento(elemento.id, { texto: html })
               }
             />
@@ -154,12 +179,18 @@ export default function EditorElemento({
         <EditorCard largura={elemento.largura}>
           <div className="elemento-header">
             <h3>Imagem</h3>
-            <SelectTamanho
-              value={elemento.largura}
-              onChange={e =>
-                atualizarElemento(elemento.id, { largura: e.target.value })
-              }
-            />
+            <span>
+              <SelectTamanho
+                value={elemento.largura}
+                onChange={(e) =>
+                  atualizarElemento(elemento.id, { largura: e.target.value })
+                }
+              />
+              <ElementoActions
+                elemento={elemento}
+                removerElemento={removerElemento}
+              />
+            </span>
           </div>
           <EditorImagem
             index={elemento.id}
@@ -170,14 +201,20 @@ export default function EditorElemento({
       );
     case "banner":
       return (
-        <div className="editor-card span-2">
-          <h3>Banner</h3>
+        <EditorCard largura={elemento.largura}>
+          <div className="elemento-header">
+            <h3>Banner</h3>
+            <ElementoActions
+              elemento={elemento}
+              removerElemento={removerElemento}
+            />
+          </div>
           <EditorImagem
             index={elemento.id}
             elemento={elemento}
             atualizarElemento={atualizarElemento}
           />
-        </div>
+        </EditorCard>
       );
     default:
       return null;
