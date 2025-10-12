@@ -1,36 +1,30 @@
-import { useState } from "react";
-
+import React from "react";
 import "./App.css";
-import FormularioEnvio from "./Components/FormularioEnvio";
-import HtmlPrevil from "./Components/HtmlPrevil";
-import FormularioCriacao from "./Components/FormularioDeCriacao";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./Pages/Home/home";
+import Gerador from "./Pages/Gerador/ComunicadoMaker";
 import Header from "./Components/Header";
 
-function App() {
-  const [htmlElements, SetHtmlElements] = useState([]);
-  const [html, SetHtml] = useState("MONTE SEU EMAIL AO LADO");
-  const [images, SetImage] = useState([]);
-
-  const imagens = htmlElements
-    ? htmlElements.filter((el) => el.tipo === "imagem" || el.tipo === "banner")
-    : [];
-
+export default function App() {
   return (
-    <>
-      <Header/>
-      <main>
-        <FormularioCriacao
-          elementos={htmlElements}
-          setElementos={SetHtmlElements}
-          setHtml={SetHtml}
-          images={images}
-          SetImage={SetImage}
-        />
-        <HtmlPrevil conteudo={html} imagens={imagens}></HtmlPrevil>
-        <FormularioEnvio html={html} imagens={imagens}></FormularioEnvio>
-      </main>
-    </>
+    <Router>
+      <Header>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/gerador">Gerador</Link>
+            </li>
+          </ul>
+        </nav>
+      </Header>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/gerador" element={<Gerador />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;

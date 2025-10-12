@@ -10,9 +10,20 @@
   background-color: var(--cor3);
   gap: 1em;
   text-transform: capitalize;
-  box-shadow: 5px 0 10px #000;
+  box-shadow: 5px 0 10px #00000027;
 }
 
 .header img{
   max-width: 70px;
+}
+
+.header nav ul{
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  list-style: none;
+}
+.header nav ul a{ 
+  all: unset;
+  cursor: pointer;
 }

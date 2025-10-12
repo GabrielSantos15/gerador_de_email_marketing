@@ -32,13 +32,19 @@ function ElementoActions({ elemento, removerElemento }) {
         className="fas fa-ellipsis-v"
         onClick={() => setShowActions(!showActions)}
       ></i>
-      <div className="menuActions" style={{ display: showActions ? "block" : "none" }}>
-        <ul >
+      <div
+        className="menuActions"
+        style={{ display: showActions ? "block" : "none" }}
+      >
+        <ul>
           <li onClick={() => removerElemento(elemento.id)}>
             <i className="fa-solid fa-x"></i> Delete
           </li>
         </ul>
-        <span className="overlay" onClick={() => setShowActions(!showActions)}></span>
+        <span
+          className="overlay"
+          onClick={() => setShowActions(!showActions)}
+        ></span>
       </div>
     </div>
   );
@@ -229,10 +235,18 @@ export default function EditorElemento({
         <EditorCard largura={elemento.largura}>
           <div className="elemento-header">
             <h3>HTML</h3>
-            <ElementoActions
-              elemento={elemento}
-              removerElemento={removerElemento}
-            />
+            <span>
+              <SelectTamanho
+                value={elemento.largura}
+                onChange={(e) =>
+                  atualizarElemento(elemento.id, { largura: e.target.value })
+                }
+              />
+              <ElementoActions
+                elemento={elemento}
+                removerElemento={removerElemento}
+              />
+            </span>
           </div>
           <textarea
             className="codigoTextArea"
