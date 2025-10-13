@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Home from "./Pages/Home/home";
-import Gerador from "./Pages/Gerador/ComunicadoMaker";
+import Home from "./Pages/Home";
+import Gerador from "./Pages/Gerador";
 import Header from "./Components/Header";
 
 export default function App() {

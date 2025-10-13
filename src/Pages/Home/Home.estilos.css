@@ -1,0 +1,92 @@
+.mainHome {
+    padding: 1em
+}
+
+.homeLadingPage {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+    padding: 2em;
+
+    background-image: linear-gradient(90deg, #020516 calc(100% - 1154px), transparent), url(../../assets/retrato-de-guerreira-de-mulher-cyberpunk.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-color: #020516;
+
+
+    width: 100%;
+    height: 650px;
+    max-height: 100dvh;
+
+    border-radius: 15px;
+    outline: 2px solid var(--corFundo);
+    outline-offset: -10px;
+}
+
+.homeLadingPage article {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    color: #fff;
+}
+
+
+.homeLadingPage article h3 {
+    max-width: 600px;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    color: var(--corPrimaria);
+}
+
+.homeLadingPage article h2 {
+    max-width: 800px;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.homeLadingPage article p {
+    opacity: .5;
+}
+
+/* From Uiverse.io by adamgiebl */
+.startButton {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    width: fit-content;
+    padding: 8px 16px;
+    padding-right: calc(3em + 16px);
+
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--corPrimaria);
+    border: 2px solid var(--corFundo);
+    background: var(--corFundo);
+
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.startButton .icon {
+    background-color: var(--corPrimaria);
+    color: var(--corFundo);
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 3em;
+    border-radius: 20px;
+    right: 0;
+    transition: all 0.3s;
+}
+
+.startButton:hover .icon {
+    width: 100%;
+}
+
+.startButton:active .icon {
+    transform: scale(0.95);
+}

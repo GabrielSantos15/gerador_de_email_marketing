@@ -9,7 +9,7 @@
     justify-content: start;
     gap: 1em;
     padding: 1em;
-    height: calc(100dvh - 100px);
+    height: calc(100dvh - 75px);
     overflow-y: scroll;
     box-shadow: 5px 5px 10px #00000018;
 }
@@ -53,5 +53,5 @@
 .formulario-criacao::-webkit-scrollbar-thumb {
     padding: 5px;
     border-radius: 5px;
-    background-color: var(--cor1);
+    background-color: var(--corPrimaria);
 }

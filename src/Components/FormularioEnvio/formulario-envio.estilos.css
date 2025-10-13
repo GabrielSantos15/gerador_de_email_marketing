@@ -1,20 +1,29 @@
-#formularioEnvioCloseLabel{
-    left: -50px;
+#formularioEnvioCloseLabel {
     position: absolute;
-    background-color: var(--cor2);
-    width: 50px;
+    top: 0;
+    left: -1.5em;
 
-    border-radius: 5px 0  0 5px;
+    display: grid;
+    place-items: center;
+    width: 1.5em;
+    height: 1.5em;
+
+
+    background-color: var(--cor2);
+    border-radius: 5px 0 0 5px;
+    cursor: pointer;
 }
 
-#formularioEnvioClose{
+#formularioEnvioClose {
     display: none;
 }
-.formulario-envio{
+
+.formulario-envio {
     position: relative;
     transition: .5s ease-in;
 }
-.formulario-envio:has(#formularioEnvioClose:checked){
+
+.formulario-envio:has(#formularioEnvioClose:checked) {
     transform: translate(100%);
     /* width: 0; */
 }

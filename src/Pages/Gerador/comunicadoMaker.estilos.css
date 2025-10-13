@@ -1,4 +1,5 @@
-main{
+.mainGerador {
+  background-color: var(--cor1);
   display: grid;
-   grid-template-columns: 1.5fr 2fr 1fr;
+  grid-template-columns: 1.5fr 2fr 1fr;
 }

@@ -24,7 +24,7 @@ export default function FormularioEnvio({ html, imagens }) {
   return (
     <form className="formulario-envio">
       <label htmlFor="formularioEnvioClose" id="formularioEnvioCloseLabel"> <i className="fa-solid fa-arrow-right"></i> </label>
-      <input type="checkbox" name="" id="formularioEnvioClose" />
+      <input arial-hidden="true" type="checkbox" name="" id="formularioEnvioClose" />
       <h3>Enviar E-mail</h3>
       <CampoForms>
         <Label htmlFor="destinatárioInput">Destinatario:</Label>
