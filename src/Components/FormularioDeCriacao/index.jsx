@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./formulario-criacao.estilos.css";
 import ButtonAdd from "../ButtonAdd";
 import EditorElemento from "../EditorElemento";
 import Input from "../Input";
 import DOMPurify from "dompurify";
+import EditorImagem from "../EditorImagem";
 
 export default function FormularioCriacao({
   elementos,
   setElementos,
   setHtml,
-  images,
-  SetImage,
+  colorBg,
+  setColorBg,
+  imageBg,
+  setimageBg,
 }) {
-  const [colorBg, setColorBg] = useState("#eeeeee");
-  const [templateEmail, setTemplate] = useState("padrao");
-
   useEffect(() => {
     let imgContador = 0;
     let rows = [];
@@ -61,18 +61,18 @@ export default function FormularioCriacao({
         );
         // Se já tem dois, fecha a linha
         if (tempRow.length === 2) {
-          rows.push(`<tr >${tempRow.join("")}</tr>`);
+          rows.push(`<tr style="padding: 30px">${tempRow.join("")}</tr>`);
           tempRow = [];
         }
       } else {
         // Se houver célula pendente, fecha a linha antes
         if (tempRow.length > 0) {
-          rows.push(`<tr>${tempRow.join("")}</tr>`);
+          rows.push(`<tr style="padding: 30px">${tempRow.join("")}</tr>`);
           tempRow = [];
         }
         // Elemento 100% ocupa linha inteira
         rows.push(
-          `<tr><td width="100%;" valign="center" colspan="2" style="padding: 10px">${html}</td></tr>`
+          `<tr style="padding: 30px"><td width="100%;" valign="center" colspan="2" style="padding: 10px">${html}</td></tr>`
         );
       }
     });
@@ -80,7 +80,7 @@ export default function FormularioCriacao({
     // Se sobrou célula 50% sozinha, completa a linha
     if (tempRow.length === 1) {
       tempRow.push('<td width="50%"></td>');
-      rows.push(`<tr>${tempRow.join("")}</tr>`);
+      rows.push(`<tr style="padding: 30x">${tempRow.join("")}</tr>`);
     }
 
     // Monta a tabela
@@ -113,10 +113,8 @@ export default function FormularioCriacao({
       </style>
     </head>
     <body>
-      <div style="font-family: system-ui, Helvetica, sans-serif; ${tamplateGerador(
-        templateEmail
-      )}; max-width: 800px; margin: auto;">
-        <div style="background-color: ${colorBg};">
+      <div style="font-family: system-ui, Helvetica, sans-serif; max-width: 800px; margin: auto">
+        <div style="background-color: ${colorBg}">
         ${DOMPurify.sanitize(conteudoHtml)}
         </div>
       </div>
@@ -125,7 +123,7 @@ export default function FormularioCriacao({
       `;
 
     setHtml(htmlFinal);
-  }, [elementos, colorBg, setHtml, templateEmail]);
+  }, [elementos, colorBg, setHtml]);
 
   const adicionarElemento = (elemento) => {
     const atualizados = elemento ? [...elementos, elemento] : elementos;
@@ -145,6 +143,17 @@ export default function FormularioCriacao({
     setElementos(atualizados);
   };
 
+    function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
   return (
     <section className="formulario-criacao">
       <article className="config-gerais">
@@ -156,15 +165,6 @@ export default function FormularioCriacao({
             value={colorBg}
             onChange={(e) => setColorBg(e.target.value)}
           />
-        </span>
-        <span>
-          <label htmlFor="input-cor-fundo">Modelo</label>
-          <select onChange={(e) => setTemplate(e.target.value)}>
-            <option value="padrao">Padrão</option>
-            <option value="corporativo">Corporativo</option>
-            <option value="seguranca">Segurança</option>
-            <option value="festa">Festa</option>
-          </select>
         </span>
       </article>
       <div className="elementos-lista">
@@ -182,19 +182,4 @@ export default function FormularioCriacao({
       <ButtonAdd functionOnClick={adicionarElemento} />
     </section>
   );
-
-  function tamplateGerador(template) {
-    switch (template) {
-      case "padrao":
-        return "";
-      case "corporativo":
-        return `padding: 20px; box-sizing: border-box; margin: auto; font-family: Arial, sans-serif; background-color: #f9f9f9;`;
-      case "seguranca":
-        return `padding: 20px; box-sizing: border-box; margin: auto; font-family: 'Courier New', Courier, monospace; color: #000; background-color: #d80606ff; border: 5px solid #000; background-image: repeating-linear-gradient( 45deg, #ffffff33, #ffffff33 10px, #00000033 10px, #00000033 20px );`;
-      case "festa":
-        return `padding: 20px; box-sizing: border-box; margin: auto; font-family: 'Comic Sans MS', cursive, sans-serif; background-color: #ff69b4;background-image: url(https://www.shutterstock.com/image-vector/color-gradient-background-abstract-orange-600nw-2480677725.jpg);`;
-      default:
-        return "padding: 20px; box-sizing: border-box;";
-    }
-  }
 }

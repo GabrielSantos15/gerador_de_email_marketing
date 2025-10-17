@@ -1,31 +1,23 @@
 .mainHome {
-    padding: 1em
+    padding: 2em;
+    height: 100dvh;
+
+    background-image: linear-gradient(90deg, #020516, transparent), url(../../assets/retrato-de-guerreira-de-mulher-cyberpunk.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #020516;
 }
 
 .homeLadingPage {
+    all: unset;
     display: flex;
-    align-items: center;
-    justify-content: start;
-
-    padding: 2em;
-
-    background-image: linear-gradient(90deg, #020516 calc(100% - 1154px), transparent), url(../../assets/retrato-de-guerreira-de-mulher-cyberpunk.jpg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-color: #020516;
-
-
-    width: 100%;
-    height: 650px;
-    max-height: 100dvh;
-
-    border-radius: 15px;
-    outline: 2px solid var(--corFundo);
-    outline-offset: -10px;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-around;
+    height: 100%;
 }
 
-.homeLadingPage article {
+.homeLadingPage .apresentacaoHome {
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -33,18 +25,19 @@
 }
 
 
-.homeLadingPage article h3 {
+.homeLadingPage .apresentacaoHome h3 {
     max-width: 600px;
     font-size: clamp(1rem, 2vw, 1.5rem);
     color: var(--corPrimaria);
 }
 
-.homeLadingPage article h2 {
+.homeLadingPage .apresentacaoHome h2 {
+    font-family: var(--fontTitulo);
     max-width: 800px;
     font-size: clamp(2.5rem, 5vw, 3.5rem);
 }
 
-.homeLadingPage article p {
+.homeLadingPage .apresentacaoHome p {
     opacity: .5;
 }
 
@@ -89,4 +82,39 @@
 
 .startButton:active .icon {
     transform: scale(0.95);
+}
+
+
+.cardsHome {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    justify-content: space-evenly;
+    gap: 1em;
+    overflow-x: scroll;
+}
+
+/* hide WebKit scrollbar */
+.cardsHome::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.cardHome {
+    max-width: 500px;
+    padding: 15px;
+    border-radius: 15px 5px ;
+}
+
+.cardHome h4 {
+    font-family: var(--fontTitulo);
+    font-size: 120%;
+    margin-bottom: 0.5em;
+    color: #fff
+}
+.cardHome p {
+    opacity: .7;
+    color: #fff
 }

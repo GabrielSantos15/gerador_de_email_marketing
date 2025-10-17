@@ -8,10 +8,14 @@
     position: relative;
     color: var(--cor1);
     border-radius: 2px;
+    opacity: .5;
+    transition: all 0.2s;
+    cursor: pointer;
 }
 
 .menuEditor button:hover {
     color: var(--corPrimaria);
+    opacity: 1;
 }
 
 
