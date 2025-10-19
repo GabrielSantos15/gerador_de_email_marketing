@@ -9,13 +9,13 @@ export default function HtmlPrevil({ conteudo, imagens }) {;
   });
 
   return (
-    <section className="previl-container">
+    // <section className="previl-container">
       <iframe
         className="previl-html"
         title="preview"
         srcDoc={conteudo}
         sandbox="allow-popups allow-scripts"
       />
-    </section>
+    // </section>
   );
 }
