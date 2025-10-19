@@ -36,6 +36,7 @@
 .menuBotoes {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 5px;
     padding: 5px;
     background-color: var(--cor2);

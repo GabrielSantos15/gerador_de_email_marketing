@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Header({BackgroundColor}) {
   return (
     <header style={BackgroundColor = {BackgroundColor}} className='header'>
-      <h1>SendPro</h1>
+      <h1 className='logo'>Send<mark>Pro</mark></h1>
       <nav>
           <ul>
             <li>

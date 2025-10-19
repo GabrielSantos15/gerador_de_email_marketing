@@ -1,29 +1,84 @@
-#formularioEnvioCloseLabel {
-    position: absolute;
-    top: 0;
-    left: -1.5em;
-
-    display: grid;
-    place-items: center;
-    width: 1.5em;
-    height: 1.5em;
-
-
-    background-color: var(--cor2);
-    border-radius: 5px 0 0 5px;
-    cursor: pointer;
-}
-
-#formularioEnvioClose {
-    display: none;
-}
-
 .formulario-envio {
-    position: relative;
-    transition: .5s ease-in;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 15px;
+    height: calc(100dvh - 75px);
+    background-color: var(--cor2);
 }
 
-.formulario-envio:has(#formularioEnvioClose:checked) {
-    transform: translate(100%);
-    /* width: 0; */
+.formulario-envio article {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 16px;
+}
+
+.formulario-envio article:not(:last-child) {
+    border-bottom: 2px solid var(--cor1);
+}
+
+.formulario-envio h3 {
+    font-family: var(--fontTitulo);
+}
+
+
+/* From Uiverse.io by adamgiebl */
+.botaoEnviar {
+    all: unset;
+    position: relative;
+    
+    background-color: var(--corPrimaria);
+    
+    font-family: var(--fontTitulo);
+    border-radius: 5px;
+    text-align: center;
+    padding: 8px 16px;
+    transition: all 5s;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.botaoEnviar i {
+    display: inline-block;
+    transition: transform 0.5s;
+}
+
+.botaoEnviar span {
+    margin-left: 8px;
+    font-size: 1.2em;
+}
+
+.botaoEnviar:hover span {
+    color: #fff;
+}
+
+.botaoEnviar:hover i {
+    color: #fff;
+    transform: translateX(-1.2em) rotate(45deg) scale(1.1);
+}
+
+.botaoEnviar:active i {
+    transform: translateX(350px) rotate(45deg) scale(1.1);
+}
+
+.export-container{
+
+}
+
+.botaoExport {
+    all: unset;
+    border: 1.5px solid var(--cor1);
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 1.2em;
+    color: var(--cor1);
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.botaoExport:hover {
+    background-color: var(--cor1);
+    color: var(--corPrimaria);
+    cursor: pointer;
 }

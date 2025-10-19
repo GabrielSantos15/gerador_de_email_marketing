@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import "./comunicadoMaker.estilos.css";
+import "./gerador.estilos.css";
 import FormularioEnvio from "../../Components/FormularioEnvio";
 import HtmlPrevil from "../../Components/HtmlPrevil";
 import FormularioCriacao from "../../Components/FormularioDeCriacao";

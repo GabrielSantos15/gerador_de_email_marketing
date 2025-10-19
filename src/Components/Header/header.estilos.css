@@ -12,8 +12,18 @@
   /* box-shadow: 5px 0 10px #00000027; */
 }
 
-.header img{
-  max-width: 70px;
+header .logo{
+  font-family: var(--fontTitulo);
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--cor1);
+  
+}
+
+header .logo mark{
+  all: unset;
+  color: var(--corPrimaria);
+  font-weight: bold;
 }
 
 .header nav ul{

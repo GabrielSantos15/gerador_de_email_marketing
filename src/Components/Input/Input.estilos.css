@@ -8,13 +8,18 @@
     height: fit-content;
     text-wrap: wrap;
     outline: none;
+    transition: all 0.3s;
 }
 
 .input:focus {
-    outline: 1px solid var(--corPrimaria);
+    border: 1px solid var(--corPrimaria);
+    box-shadow: 0 0 5px var(--corPrimaria);
 }
 
 .input[type= "number"]{
-    
     max-width: fit-content;
+}
+
+.input::placeholder {
+    opacity: 0.7;
 }

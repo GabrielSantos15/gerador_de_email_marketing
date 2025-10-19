@@ -65,26 +65,26 @@ export default function FormularioCriacao({
         );
         // Se já tem dois, fecha a linha
         if (tempRow.length === 2) {
-          rows.push(`<tr style="padding: 30px">${tempRow.join("")}</tr>`);
+          rows.push(`<tr>${tempRow.join("")}</tr>`);
           tempRow = [];
         }
       } else {
         // Se houver célula pendente, fecha a linha antes
         if (tempRow.length > 0) {
-          rows.push(`<tr style="padding: 30px">${tempRow.join("")}</tr>`);
+          rows.push(`<tr>${tempRow.join("")}</tr>`);
           tempRow = [];
         }
         // Elemento 100% ocupa linha inteira
         rows.push(
-          `<tr style="padding: 30px"><td width="100%;" valign="center" colspan="2" style="padding: 10px">${html}</td></tr>`
+          `<tr><td width="100%;" valign="center" colspan="2" style="padding: 10px">${html}</td></tr>`
         );
       }
     });
 
     // Se sobrou célula 50% sozinha, completa a linha
     if (tempRow.length === 1) {
-      tempRow.push('<td width="50%"></td>');
-      rows.push(`<tr style="padding: 30x">${tempRow.join("")}</tr>`);
+      tempRow.push('<td width="50%" style="padding: 10px"></td>');
+      rows.push(`<tr style="padding: 40x 20px">${tempRow.join("")}</tr>`);
     }
 
     // Monta a tabela
@@ -107,14 +107,6 @@ export default function FormularioCriacao({
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Vite + React</title>
-      <style>
-        body, table, tr, td, h1, h2, h3, h4, h5, h6, p, img {
-        color:"red";
-          margin: 0;
-          padding: 0;
-          border: 0;
-        }
-      </style>
     </head>
     <body>
       <div style="font-family: system-ui, Helvetica, sans-serif; max-width: 800px; margin: auto">

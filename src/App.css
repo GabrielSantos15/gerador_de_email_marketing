@@ -10,15 +10,6 @@ section{
   background-color: var(--cor2);
 }
 
-form{
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 15px;
-  height: calc(100dvh - 75px);
-  background-color: var(--cor2);
-}
-
 select{
   border-radius: 2px;
   padding: 2px 4px;
@@ -53,4 +44,11 @@ input[type="color"]::-webkit-color-swatch {
       backdrop-filter: blur(8px); 
       -webkit-backdrop-filter: blur(8px); 
       border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.campo-forms{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: none;
 }

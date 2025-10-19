@@ -108,14 +108,18 @@ export default function TipTapEditor(props) {
             editor.chain().focus().toggleHeading({ level: 1 }).run()
           }
         >
-          <i className="fa-solid fa-heading"></i>1
+          <i className="fa-solid fa-heading">
+            <sub>1</sub>
+          </i>
         </button>
         <button
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 2 }).run()
           }
         >
-          <i className="fa-solid fa-heading"></i>2
+          <i className="fa-solid fa-heading">
+            <sub>2</sub>
+          </i>
         </button>
 
         {/* NEGRITO */}
@@ -168,7 +172,7 @@ export default function TipTapEditor(props) {
             </span>
           </div>
         </button>
-        {/* LISTA (O elemento h1 não pode ser listado)*/}
+        {/* LISTA */}
 
         <button onClick={() => editor.chain().focus().toggleBulletList().run()}>
           <i className="fa-solid fa-list"></i>
