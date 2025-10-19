@@ -3,6 +3,8 @@ import TipTapEditor from "../tiptapEditor";
 import Input from "../Input";
 import EditorImagem from "../EditorImagem";
 import { useState } from "react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 function SelectTamanho({ value, onChange }) {
   return (
@@ -16,11 +18,14 @@ function SelectTamanho({ value, onChange }) {
   );
 }
 
-function EditorCard({ children, largura }) {
+function EditorCard({ children, largura, sortableProps }) {
   return (
-    <div className={`editor-card ${largura === "big" ? "span-2" : ""}`}>
+    <article
+      className={`editor-card ${largura === "big" ? "span-2" : ""}`}
+      {...sortableProps}
+    >
       {children}
-    </div>
+    </article>
   );
 }
 
@@ -55,211 +60,165 @@ export default function EditorElemento({
   atualizarElemento,
   removerElemento,
 }) {
-  switch (elemento.tipo) {
-    case "texto":
-      return (
-        <EditorCard largura={elemento.largura}>
-          <div className="elemento-header">
-            <h3>Texto</h3>
-            <span>
-              <SelectTamanho
-                value={elemento.largura}
-                onChange={(e) =>
-                  atualizarElemento(elemento.id, { largura: e.target.value })
-                }
-              />
-              <ElementoActions
-                elemento={elemento}
-                removerElemento={removerElemento}
-              />
-            </span>
-          </div>
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: elemento.id });
+
+  const sortableStyle = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    visibility: isDragging ? "hidden" : "visible", // Esconde o elemento original enquanto é arrasto
+  };
+
+  const renderContent = () => {
+    switch (elemento.tipo) {
+      case "texto":
+        return (
           <TipTapEditor
             index={elemento.id}
             content={elemento.texto || ""}
             onChange={(html) => atualizarElemento(elemento.id, { texto: html })}
           />
-        </EditorCard>
-      );
-    case "botao":
-      return (
-        <EditorCard largura={elemento.largura}>
-          <div className="elemento-header">
-            <h3>Botão</h3>
+        );
+      case "botao":
+        return (
+          <>
             <span>
-              <SelectTamanho
-                value={elemento.largura}
+              <p>Fundo</p>
+              <Input
+                type="color"
+                value={elemento.corFundo}
                 onChange={(e) =>
-                  atualizarElemento(elemento.id, { largura: e.target.value })
+                  atualizarElemento(elemento.id, { corFundo: e.target.value })
                 }
               />
-              <ElementoActions
-                elemento={elemento}
-                removerElemento={removerElemento}
-              />
             </span>
-          </div>
-          <span>
-            <p>Fundo</p>
-            <Input
-              type="color"
-              value={elemento.corFundo}
-              onChange={(e) =>
-                atualizarElemento(elemento.id, { corFundo: e.target.value })
-              }
-            />
-          </span>
-          <span>
-            <p>Cor Texto</p>
-            <Input
-              type="color"
-              value={elemento.corTexto}
-              onChange={(e) =>
-                atualizarElemento(elemento.id, { corTexto: e.target.value })
-              }
-            />
-          </span>
-          <span>
-            <p>Arredondar</p>
-            <Input
-              type="number"
-              value={elemento.arredondamento}
-              onChange={(e) =>
-                atualizarElemento(elemento.id, {
-                  arredondamento: e.target.value,
-                })
-              }
-            />
-            <p>Texto</p>
-            <Input
-              type="text"
-              value={elemento.texto || ""}
-              onChange={(e) =>
-                atualizarElemento(elemento.id, { texto: e.target.value })
-              }
-            />
-          </span>
-          <p>Link</p>
-          <Input
-            type="url"
-            value={elemento.link || ""}
-            onChange={(e) =>
-              atualizarElemento(elemento.id, { link: e.target.value })
-            }
-          />
-        </EditorCard>
-      );
-    case "card":
-      return (
-        <EditorCard largura={elemento.largura}>
-          <div className="elemento-header">
-            <h3>Card</h3>
             <span>
-              <SelectTamanho
-                value={elemento.largura}
+              <p>Cor Texto</p>
+              <Input
+                type="color"
+                value={elemento.corTexto}
                 onChange={(e) =>
-                  atualizarElemento(elemento.id, { largura: e.target.value })
+                  atualizarElemento(elemento.id, { corTexto: e.target.value })
                 }
               />
-              <ElementoActions
-                elemento={elemento}
-                removerElemento={removerElemento}
-              />
             </span>
-          </div>
-          <span>
-            <label>Cor Fundo</label>
-            <input
-              type="color"
-              value={elemento.corFundo || "#ffffff"}
-              onChange={(e) =>
-                atualizarElemento(elemento.id, { corFundo: e.target.value })
-              }
-            />
-          </span>
-          <span>
-            <TipTapEditor
-              index={elemento.id}
-              content={elemento.texto || ""}
-              onChange={(html) =>
-                atualizarElemento(elemento.id, { texto: html })
-              }
-            />
-          </span>
-        </EditorCard>
-      );
-    case "imagem":
-      return (
-        <EditorCard largura={elemento.largura}>
-          <div className="elemento-header">
-            <h3>Imagem</h3>
             <span>
-              <SelectTamanho
-                value={elemento.largura}
+              <p>Arredondar</p>
+              <Input
+                type="number"
+                value={elemento.arredondamento}
                 onChange={(e) =>
-                  atualizarElemento(elemento.id, { largura: e.target.value })
+                  atualizarElemento(elemento.id, {
+                    arredondamento: e.target.value,
+                  })
                 }
               />
-              <ElementoActions
-                elemento={elemento}
-                removerElemento={removerElemento}
+              <p>Texto</p>
+              <Input
+                type="text"
+                value={elemento.texto || ""}
+                onChange={(e) =>
+                  atualizarElemento(elemento.id, { texto: e.target.value })
+                }
               />
             </span>
-          </div>
+            <p>Link</p>
+            <Input
+              type="url"
+              value={elemento.link || ""}
+              onChange={(e) =>
+                atualizarElemento(elemento.id, { link: e.target.value })
+              }
+            />
+          </>
+        );
+      case "card":
+        return (
+          <>
+            <span>
+              <label>Cor Fundo</label>
+              <Input
+                type="color"
+                value={elemento.corFundo || "#ffffff"}
+                onChange={(e) =>
+                  atualizarElemento(elemento.id, { corFundo: e.target.value })
+                }
+              />
+            </span>
+            <span>
+              <TipTapEditor
+                index={elemento.id}
+                content={elemento.texto || ""}
+                onChange={(html) =>
+                  atualizarElemento(elemento.id, { texto: html })
+                }
+              />
+            </span>
+          </>
+        );
+      case "imagem":
+      case "banner":
+        return (
           <EditorImagem
             index={elemento.id}
             elemento={elemento}
             atualizarElemento={atualizarElemento}
           />
-        </EditorCard>
-      );
-    case "banner":
-      return (
-        <EditorCard largura={elemento.largura}>
-          <div className="elemento-header">
-            <h3>Banner</h3>
-            <ElementoActions
-              elemento={elemento}
-              removerElemento={removerElemento}
-            />
-          </div>
-          <EditorImagem
-            index={elemento.id}
-            elemento={elemento}
-            atualizarElemento={atualizarElemento}
-          />
-        </EditorCard>
-      );
-    case "html":
-      return (
-        <EditorCard largura={elemento.largura}>
-          <div className="elemento-header">
-            <h3>HTML</h3>
-            <span>
-              <SelectTamanho
-                value={elemento.largura}
-                onChange={(e) =>
-                  atualizarElemento(elemento.id, { largura: e.target.value })
-                }
-              />
-              <ElementoActions
-                elemento={elemento}
-                removerElemento={removerElemento}
-              />
-            </span>
-          </div>
+        );
+      case "html":
+        return (
           <textarea
             className="codigoTextArea"
             value={elemento.codigo || ""}
             onChange={(e) =>
               atualizarElemento(elemento.id, { codigo: e.target.value })
             }
-            placeholder="Cole seu código HTML aqui (Lembre-se de usar estilos inline compativeis com email!)"
+            placeholder="Cole seu código HTML aqui (Lembre-se de usar estilos inline compatíveis com email!)"
             style={{ width: "100%", height: "150px" }}
           ></textarea>
-        </EditorCard>
-      );
-    default:
-      return null;
-  }
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <EditorCard
+      largura={elemento.largura}
+      sortableProps={{
+        ref: setNodeRef,
+        style: sortableStyle,
+        ...attributes, // Atributos aplicados ao elemento principal
+      }}
+    >
+      <div className="elemento-header">
+        <span>
+          <span
+            className="drag-handle"
+            {...listeners} // Listeners aplicados apenas ao handle
+            title="Arraste para mover"
+            style={{ cursor: "grab", marginRight: "8px" }}
+          >
+            :::
+          </span>
+          <h3>
+            {elemento.tipo.charAt(0).toUpperCase() + elemento.tipo.slice(1)}
+          </h3>
+        </span>
+        <span>
+          <SelectTamanho
+            value={elemento.largura}
+            onChange={(e) =>
+              atualizarElemento(elemento.id, { largura: e.target.value })
+            }
+          />
+          <ElementoActions
+            elemento={elemento}
+            removerElemento={removerElemento}
+          />
+        </span>
+      </div>
+      {renderContent()}
+    </EditorCard>
+  );
 }

@@ -108,6 +108,7 @@ span.colorSelectOption,
     all: unset;
     appearance: none;
     background-color: var(--cor2);
+    
 }
 
 .ProseMirror ul,
@@ -117,7 +118,7 @@ span.colorSelectOption,
 
 .ProseMirror p {
     word-break: break-all;
-
+    
 }
 
 .editorTipTap {

@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./formulario-criacao.estilos.css";
 import ButtonAdd from "../ButtonAdd";
 import EditorElemento from "../EditorElemento";
 import Input from "../Input";
-import DOMPurify from "dompurify";
 import EditorImagem from "../EditorImagem";
+
+import DOMPurify from "dompurify";
+import { DndContext, DragOverlay } from "@dnd-kit/core";
 
 export default function FormularioCriacao({
   elementos,
@@ -15,6 +17,8 @@ export default function FormularioCriacao({
   imageBg,
   setimageBg,
 }) {
+  const [dragActiveId, setDragActiveId] = useState(null);
+
   useEffect(() => {
     let imgContador = 0;
     let rows = [];
@@ -143,43 +147,63 @@ export default function FormularioCriacao({
     setElementos(atualizados);
   };
 
-    function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
-
   return (
-    <section className="formulario-criacao">
-      <article className="config-gerais">
-        <span>
-          <label htmlFor="input-cor-fundo">Cor de Fundo</label>
-          <Input
-            id="input-cor-fundo"
-            type="color"
-            value={colorBg}
-            onChange={(e) => setColorBg(e.target.value)}
-          />
-        </span>
-      </article>
-      <div className="elementos-lista">
-        {elementos.map((el) => (
-          <EditorElemento
-            key={el.id}
-            elemento={el}
-            atualizarElemento={atualizarElemento}
-            // Passamos o ID do elemento para a função de remoção
-            removerElemento={() => removerElemento(el.id)}
-          />
-        ))}
-      </div>
+    <DndContext
+      onDragStart={(event) => setDragActiveId(event.active.id)} // Define o elemento que está sendo arrastado
+      onDragEnd={(event) => {
+        console.log("Drag End", event);
+        const { active, over } = event;
 
-      <ButtonAdd functionOnClick={adicionarElemento} />
-    </section>
+        setDragActiveId(null); // Limpa o elemento ativo
+        if (!over || active.id === over.id) return; // verifica se é o mesmo elemento ou se não há destino
+
+        const oldIndex = elementos.findIndex((el) => el.id === active.id);
+        const newIndex = elementos.findIndex((el) => el.id === over.id);
+
+        if (oldIndex !== -1 && newIndex !== -1) {
+          // Reordena os elementos no array
+          const atualizados = [...elementos];
+          const [itemMovido] = atualizados.splice(oldIndex, 1); 
+          atualizados.splice(newIndex, 0, itemMovido); 
+          setElementos(atualizados);
+        }
+      }}
+    >
+      <section className="formulario-criacao">
+        <article className="config-gerais">
+          <span>
+            <label htmlFor="input-cor-fundo">Cor de Fundo</label>
+            <Input
+              id="input-cor-fundo"
+              type="color"
+              value={colorBg}
+              onChange={(e) => setColorBg(e.target.value)}
+            />
+          </span>
+        </article>
+        <div className="elementos-lista">
+          {elementos.map((el) => (
+            <EditorElemento
+              key={el.id}
+              id={el.id} 
+              elemento={el}
+              atualizarElemento={atualizarElemento}
+              removerElemento={() => removerElemento(el.id)}
+            />
+          ))}
+        </div>
+        <ButtonAdd functionOnClick={adicionarElemento} />
+        <DragOverlay>
+          {dragActiveId ? (
+            <EditorElemento
+              elemento={elementos.find((el) => el.id === dragActiveId)}
+              //funções vazias, não precisa atualizar ou remover enquanto arrasta
+              atualizarElemento={() => {}} 
+              removerElemento={() => {}}
+            />
+          ) : null}
+        </DragOverlay>
+      </section>
+    </DndContext>
   );
 }

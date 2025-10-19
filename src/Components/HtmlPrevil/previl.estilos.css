@@ -1,6 +1,10 @@
+.previl-container{
+    all: unset;
+    padding: 1em;
+}
+
 .previl-html{
     all: unset;
-    margin: auto;
     width: 100%;
     height: 100%;
 }

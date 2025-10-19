@@ -27,6 +27,7 @@
   transition: all 0.3s ease-in-out;
   position: relative;
   font-size: 120%;
+  cursor: pointer;
 }
 
 .header nav ul a:hover{

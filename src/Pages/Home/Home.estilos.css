@@ -1,20 +1,20 @@
 .mainHome {
-    padding: 2em;
     height: 100dvh;
-
+    
     background-image: linear-gradient(90deg, #020516, transparent), url(../../assets/retrato-de-guerreira-de-mulher-cyberpunk.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-color: #020516;
 }
 
+
 .homeLadingPage {
     all: unset;
     display: flex;
     flex-direction: column;
     align-items: start;
-    justify-content: space-around;
-    height: 100%;
+    justify-content: space-evenly;
+    min-height: calc(100dvh - 75px); /* subtrai a altura do header */
 }
 
 .homeLadingPage .apresentacaoHome {
@@ -22,6 +22,7 @@
     flex-direction: column;
     gap: 1em;
     color: #fff;
+    padding: 0 2em;
 }
 
 
@@ -86,6 +87,7 @@
 
 
 .cardsHome {
+    padding: 0 2em;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;

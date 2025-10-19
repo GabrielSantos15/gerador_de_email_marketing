@@ -1,14 +1,18 @@
 .editor-card {
-  padding: 10px;
+
   background-color: var(--cor3);
   width: 100%;
   border-radius: 5px;
   box-shadow: 5px 5px 10px #00000010, inset -5px -5px 10px #ffffffb7;
+  /* overflow: hidden; */
+  padding: 10px;
+  width: 100%;
 }
 
 .editor-card.span-2 {
   grid-column: span 2;
 }
+
 
 .elemento-header {
   display: flex;
@@ -67,4 +71,8 @@
   caret-color: var(--corPrimaria);
 width: 100%;
   resize: vertical;
+}
+
+.drag-handle {
+  cursor: grab;
 }
