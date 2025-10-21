@@ -16,8 +16,6 @@ header .logo{
   font-family: var(--fontTitulo);
   font-size: 1.5em;
   font-weight: bold;
-  color: var(--cor1);
-  
 }
 
 header .logo mark{
@@ -38,11 +36,6 @@ header .logo mark{
   position: relative;
   font-size: 120%;
   cursor: pointer;
-}
-
-.header nav ul a:hover{
-  color: var(--corPrimaria);
-  
 }
 
 .header nav ul a::before{

@@ -16,6 +16,7 @@ export default function FormularioCriacao({
   setColorBg,
   imageBg,
   setimageBg,
+  mostrarFormularioCriacao,
 }) {
   const [dragActiveId, setDragActiveId] = useState(null);
 
@@ -94,11 +95,13 @@ export default function FormularioCriacao({
 
     conteudoHtml = conteudoHtml.replace(/<tr[^>]*>\s*<\/tr>/g, "");
 
-    // Remove <tr> que só tem <td> vazios
+    // Remove <tr> vazios
     conteudoHtml = conteudoHtml.replace(
       /<tr[^>]*>(\s*<td[^>]*>\s*<\/td>)+\s*<\/tr>/g,
       ""
     );
+    // Remove <table> vazios
+    conteudoHtml = conteudoHtml.replace(/<table[^>]*><\/table>/g, "");
 
     let htmlFinal = `
   <!DOCTYPE html>
@@ -107,6 +110,7 @@ export default function FormularioCriacao({
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Vite + React</title>
+      
     </head>
     <body>
       <div style="font-family: system-ui, Helvetica, sans-serif; max-width: 800px; margin: auto">
@@ -155,13 +159,20 @@ export default function FormularioCriacao({
         if (oldIndex !== -1 && newIndex !== -1) {
           // Reordena os elementos no array
           const atualizados = [...elementos];
-          const [itemMovido] = atualizados.splice(oldIndex, 1); 
-          atualizados.splice(newIndex, 0, itemMovido); 
+          const [itemMovido] = atualizados.splice(oldIndex, 1);
+          atualizados.splice(newIndex, 0, itemMovido);
           setElementos(atualizados);
         }
       }}
     >
-      <section className="formulario-criacao">
+      <section
+        className={`formulario-criacao ${
+          mostrarFormularioCriacao ? "selecionado" : ""
+        }`}
+      >
+        <label className="label-Alternar-container" htmlFor="formularioSeletor">
+          {mostrarFormularioCriacao ? "Criador" : "Envio"}
+        </label>
         <article className="config-gerais">
           <span>
             <label htmlFor="input-cor-fundo">Cor de Fundo</label>
@@ -177,7 +188,7 @@ export default function FormularioCriacao({
           {elementos.map((el) => (
             <EditorElemento
               key={el.id}
-              id={el.id} 
+              id={el.id}
               elemento={el}
               atualizarElemento={atualizarElemento}
               removerElemento={() => removerElemento(el.id)}
@@ -190,7 +201,7 @@ export default function FormularioCriacao({
             <EditorElemento
               elemento={elementos.find((el) => el.id === dragActiveId)}
               //funções vazias, não precisa atualizar ou remover enquanto arrasta
-              atualizarElemento={() => {}} 
+              atualizarElemento={() => {}}
               removerElemento={() => {}}
             />
           ) : null}

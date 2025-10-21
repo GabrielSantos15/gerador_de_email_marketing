@@ -2,9 +2,9 @@ import { BackgroundColor } from '@tiptap/extension-text-style';
 import './header.estilos.css'
 import { Link } from "react-router-dom";
 
-export default function Header({BackgroundColor}) {
+export default function Header({BackgroundColor, Color}) {
   return (
-    <header style={BackgroundColor = {BackgroundColor}} className='header'>
+    <header style={{backgroundColor : BackgroundColor,color :Color}} className='header'>
       <h1 className='logo'>Send<mark>Pro</mark></h1>
       <nav>
           <ul>

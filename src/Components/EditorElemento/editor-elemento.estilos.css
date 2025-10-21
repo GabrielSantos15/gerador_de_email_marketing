@@ -77,3 +77,18 @@ width: 100%;
 .drag-handle {
   cursor: grab;
 }
+
+.config-editor-card{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.config-editor-card span{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

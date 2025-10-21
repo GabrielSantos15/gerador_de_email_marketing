@@ -1,5 +1,62 @@
 .mainGerador {
+  position: relative;
   background-color: var(--cor1);
   display: grid;
   grid-template-columns: 1.5fr 2fr 1fr;
+}
+
+.input-Alternar-container {
+  display: none;
+}
+
+.label-Alternar-container {
+  display: none;
+  padding: 8px 16px;
+  width: 100%;
+  background-color: var(--cor1);
+  border-radius: 5px;
+  text-align: center;
+  color: #fff;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.label-Alternar-container:hover {
+  color: var(--corPrimaria);
+}
+
+@media screen and (max-width: 1500px) {
+  .label-Alternar-container {
+    display: block;
+  }
+
+  .mainGerador {
+    grid-template-areas: "formulario previl";
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .formulario-criacao,
+  .formulario-envio {
+    grid-area: formulario;
+  }
+
+  .formulario-envio:not(.selecionado),
+  .formulario-criacao:not(.selecionado) {
+    display: none;
+  }
+
+}
+
+@media screen and (max-width: 900px) {
+
+  .formulario-criacao,
+  .formulario-envio {
+    border-radius: 0 0 1em 1em;
+    border-bottom: 3px solid var(--corPrimaria);
+  }
+
+  .mainGerador {
+    grid-template-areas: "formulario" "previl";
+    grid-template-columns: 1fr;
+  }
 }

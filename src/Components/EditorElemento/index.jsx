@@ -60,8 +60,14 @@ export default function EditorElemento({
   atualizarElemento,
   removerElemento,
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id: elemento.id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: elemento.id });
 
   const sortableStyle = {
     transform: CSS.Transform.toString(transform),
@@ -82,46 +88,55 @@ export default function EditorElemento({
       case "botao":
         return (
           <>
-            <span>
-              <p>Fundo</p>
-              <Input
-                type="color"
-                value={elemento.corFundo}
-                onChange={(e) =>
-                  atualizarElemento(elemento.id, { corFundo: e.target.value })
-                }
-              />
-            </span>
-            <span>
-              <p>Cor Texto</p>
-              <Input
-                type="color"
-                value={elemento.corTexto}
-                onChange={(e) =>
-                  atualizarElemento(elemento.id, { corTexto: e.target.value })
-                }
-              />
-            </span>
-            <span>
-              <p>Arredondar</p>
-              <Input
-                type="number"
-                value={elemento.arredondamento}
-                onChange={(e) =>
-                  atualizarElemento(elemento.id, {
-                    arredondamento: e.target.value,
-                  })
-                }
-              />
-              <p>Texto</p>
-              <Input
-                type="text"
-                value={elemento.texto || ""}
-                onChange={(e) =>
-                  atualizarElemento(elemento.id, { texto: e.target.value })
-                }
-              />
-            </span>
+            <div className="config-editor-card">
+              <span>
+                <label htmlFor={"inputCorFundo" + elemento.id}>Cor Fundo:</label>
+                <Input
+                  type="color"
+                  value={elemento.corFundo}
+                  onChange={(e) =>
+                    atualizarElemento(elemento.id, { corFundo: e.target.value })
+                  }
+                  id={"inputCorFundo" + elemento.id}
+                />
+              </span>
+              <span>
+                <label htmlFor={"inputCorTexto" + elemento.id}>Cor Texto:</label>
+                <Input
+                  type="color"
+                  value={elemento.corTexto}
+                  onChange={(e) =>
+                    atualizarElemento(elemento.id, { corTexto: e.target.value })
+                  }
+                  id={"inputCorTexto" + elemento.id}
+                />
+              </span>
+              <span>
+                <label htmlFor={"inputArredondamento" + elemento.id}>Arredondar:</label>
+                <Input
+                  type="number"
+                  value={elemento.arredondamento}
+                  min="0"
+                  max="50"
+                  step="1"
+                  onChange={(e) =>
+                    atualizarElemento(elemento.id, {
+                      arredondamento: e.target.value,
+                    })
+                  }
+                  id={"inputArredondamento" + elemento.id}
+                />
+              </span>
+            </div>
+            <p>Texto</p>
+            <Input
+              type="text"
+              value={elemento.texto || ""}
+              onChange={(e) =>
+                atualizarElemento(elemento.id, { texto: e.target.value })
+              }
+              maxLength={30}
+            />
             <p>Link</p>
             <Input
               type="url"
@@ -135,16 +150,20 @@ export default function EditorElemento({
       case "card":
         return (
           <>
-            <span>
-              <label>Cor Fundo</label>
-              <Input
-                type="color"
-                value={elemento.corFundo || "#ffffff"}
-                onChange={(e) =>
-                  atualizarElemento(elemento.id, { corFundo: e.target.value })
-                }
-              />
-            </span>
+            <div className="config-editor-card">
+              <span>
+                <label htmlFor={"inputCorFundoCard" + elemento.id}>Cor Fundo:</label>
+                <Input
+                  type="color"
+                  value={elemento.corFundo || "#ffffff"}
+                  onChange={(e) =>
+                    atualizarElemento(elemento.id, { corFundo: e.target.value })
+                  }
+                  id={"inputCorFundoCard" + elemento.id}
+                />
+              </span>
+            </div>
+
             <span>
               <TipTapEditor
                 index={elemento.id}
@@ -206,12 +225,15 @@ export default function EditorElemento({
           </h3>
         </span>
         <span>
-          <SelectTamanho
-            value={elemento.largura}
-            onChange={(e) =>
-              atualizarElemento(elemento.id, { largura: e.target.value })
-            }
-          />
+          {
+            elemento.tipo !== "banner" ?
+            <SelectTamanho
+              value={elemento.largura}
+              onChange={(e) =>
+                atualizarElemento(elemento.id, { largura: e.target.value })
+              }
+            />: null
+          }
           <ElementoActions
             elemento={elemento}
             removerElemento={removerElemento}

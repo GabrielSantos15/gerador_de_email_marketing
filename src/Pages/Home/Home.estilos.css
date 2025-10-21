@@ -1,7 +1,7 @@
 .mainHome {
     height: 100dvh;
     
-    background-image: linear-gradient(90deg, #020516, transparent), url(../../assets/retrato-de-guerreira-de-mulher-cyberpunk.jpg);
+    background-image: linear-gradient(90deg, #020516, #02051642), url(../../assets/retrato-de-guerreira-de-mulher-cyberpunk.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-color: #020516;
@@ -54,6 +54,7 @@
 
     text-decoration: none;
     font-weight: bold;
+    font-size: 120%;
     color: var(--corPrimaria);
     border: 2px solid var(--corFundo);
     background: var(--corFundo);
@@ -83,6 +84,25 @@
 
 .startButton:active .icon {
     transform: scale(0.95);
+}
+
+.redesHome{
+    display: flex;
+    gap: 1em;
+    margin-top: 1em;
+}
+
+.redesHome a{
+    all: unset;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #fff;
+    opacity: .5;
+}
+
+.redesHome a:hover{
+    opacity: 1;
 }
 
 

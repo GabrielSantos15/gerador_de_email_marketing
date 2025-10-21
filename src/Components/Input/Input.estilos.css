@@ -16,8 +16,10 @@
     box-shadow: 0 0 5px var(--corPrimaria);
 }
 
-.input[type= "number"]{
-    max-width: fit-content;
+.input[type="number"] {
+    width: fit-content;
+    margin: 0;
+    padding-right: 0;
 }
 
 .input::placeholder {

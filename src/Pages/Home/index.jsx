@@ -5,18 +5,29 @@ import Header from "../../Components/Header";
 export default function Home() {
   return (
     <main className="mainHome">
-      <Header />
+      <Header Color={"#ffffff"} />
       <section className="homeLadingPage">
         <article className="apresentacaoHome">
           <h3>SendPro</h3>
           <h2>Envie e-mails que impressionam</h2>
-          <p>Tudo direto do seu navegador</p>
+          <p>Crie, personalize e envie e-mails incríveis em poucos cliques</p>
 
           <Link to="/gerador" className="startButton">
             <p>Começar</p>
-
             <i class="fa-solid fa-arrow-right icon"></i>
           </Link>
+          
+          <address className="redesHome">
+            <a target="_blank" href="https://github.com/GabrielSantos15">
+              <i class="fa-brands fa-github iconGitHub"></i>
+            </a>
+            <a target="_blank" href="https://www.linkedin.com/in/gabrielsantos1509/">
+              <i class="fa-brands fa-linkedin iconLinkedin"></i>
+            </a>
+            <a target="_blank" href="https://www.instagram.com/gabrieldos5689/">
+              <i class="fa-brands fa-instagram iconInstagram"></i>
+            </a>
+          </address>
         </article>
         <article className="cardsHome">
           <div className="LiquidGlass cardHome">

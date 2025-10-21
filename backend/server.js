@@ -11,7 +11,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 app.post("/send-email", async (req, res) => {
-  const { to, subject, html, imagens } = req.body;
+  const {subject, to, Cc, Cco, html, imagens  } = req.body;
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -46,6 +46,8 @@ const attachments = imagens.map((img, index) => {
   let mailOptions = {
     from: process.env.SMTP_USER,
     to,
+    cc: Cc,
+    bcc: Cco,
     subject,
     html,
     attachments, 

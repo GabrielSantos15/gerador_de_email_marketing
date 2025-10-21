@@ -24,3 +24,19 @@
 .hidden {
   display: none;
 }
+
+
+::-webkit-scrollbar {
+    height: 9px;
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--corPrimaria);
+}
